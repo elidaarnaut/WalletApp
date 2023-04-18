@@ -9,7 +9,7 @@ export default function App() {
 
   const handleGraphSliderScroll = (event) => {
     const offset = event.nativeEvent.contentOffset.x;
-  //const index = Math.round(offset / window.width);
+    const index = Math.round(offset / window.width);
     setSelectedGraphIndex(index);
   };
   return (
