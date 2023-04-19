@@ -53,6 +53,7 @@ const SpendingsItem = () => {
     </View>
   );
 };
+//helouu
 
 const GraphSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
