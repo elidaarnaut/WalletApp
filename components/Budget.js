@@ -66,6 +66,8 @@ const Budget = () => {
   );
       };
 
+      //promjena
+
 const Stats = StyleSheet.create({
   container: {
     flexGrow: 1,
