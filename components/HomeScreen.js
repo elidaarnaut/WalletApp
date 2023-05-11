@@ -1,17 +1,16 @@
-import React, { useState } from 'react';import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { Dimensions } from 'react-native';
-
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+
+
+// Latest version of the Code, need to fix the smoothness of the Graf slider (the slider cards) and adjust the color scheme
+// will need to add detail for each of the items
+
 
 export default function HomeScreen() {
   const window = Dimensions.get('window');
-  const [selectedGraphIndex, setSelectedGraphIndex] = useState(0);
 
-  const handleGraphSliderScroll = (event) => {
-    const offset = event.nativeEvent.contentOffset.x;
-    const index = Math.round(offset / window.width);
-    setSelectedGraphIndex(index);
-  };
   return (
     <View style={styles.container}>
 
@@ -19,7 +18,7 @@ export default function HomeScreen() {
       The auto property means it will adjust based on the backgrond color, e.g white background -> dark icons and time */}
       <StatusBar style="auto" />
       <MonthSlider></MonthSlider>
-      <GraphSlider selectedGraphIndex={selectedGraphIndex} onScroll={handleGraphSliderScroll} />
+      <GraphSlider/>
       <SpendingsView></SpendingsView>
       <Text style={styles.text}>This is myyyyyyyyyyymmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmyyyyyys trial text</Text>
       <Menu></Menu>
@@ -28,6 +27,7 @@ export default function HomeScreen() {
   );
 }
 
+//Each item that was spent on
 const SpendingsView = () => {
   return(
     <ScrollView style={styles.scrollView}>
@@ -46,6 +46,7 @@ const SpendingsView = () => {
   );
 };
 
+//Individual items in the SpendingsView
 const SpendingsItem = () => {
   return(
     <View style={styles.spendingItem}>
@@ -56,45 +57,31 @@ const SpendingsItem = () => {
 //helouu
 
 const GraphSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const handleScroll = (event) => {
-    const scrollX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(scrollX / Dimensions.get('window').width);
-    setActiveIndex(index);
-  };
-
+  const window = Dimensions.get('window');
   return(
-    <View style={styles.graphSlider}>
+    <View style={[styles.graphSlider, {minWidth: window.width}]}>
       <ScrollView 
         horizontal={true}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
       >
-        <Image
-          source={require('se-project/assets/pie-graph.png')}
-          style={styles.graphs}
-        />
-        <Image
-          source={require('se-project/assets/pie-graph.png')}
-          style={styles.graphs}
-        /> 
-      </ScrollView>
-      <View style={styles.pagination}>
-      {Array.from(Array(2).keys()).map((index) => (
-          <View
-            key={index}
-            style={[
-              styles.dot,
-              activeIndex === index ? styles.activeDot : null,
-            ]}
+        <View style={[styles.sliderCard,{width: window.width*0.8} ]}>
+          <Image
+            source={require('se-project/assets/pie-graph.png')}
+            style={styles.graphs}
           />
-        ))}
-      </View>
+        </View>
+        <View style={[styles.sliderCard,{width: window.width*0.8} ]}>
+          <Image
+            source={require('se-project/assets/pie-graph.png')}
+            style={styles.graphs}
+          />
+        </View>
+      </ScrollView>
     </View>
+    
   );
 };
+
+  
 
 const MonthSlider = () => {
   return(
@@ -187,7 +174,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   text: {
-    padding: 15,
+    padding: 5,
   },
   icon: {
     width: 40,
@@ -242,7 +229,18 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     padding: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
     
+  },
+  sliderCard: {
+    width: '100%',
+    backgroundColor: 'yellow',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    margin: 10,
+    padding: 20,
   },
   scrollView: {
     width: '90%',
