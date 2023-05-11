@@ -14,6 +14,11 @@ export default function Categories() {
         <CategorySection3></CategorySection3>
         <Divider></Divider>
         <CategorySection4></CategorySection4>
+        <Divider></Divider>
+        <CategorySection5></CategorySection5>
+
+
+
 
       </ScrollView>
     </SafeAreaView>
@@ -50,7 +55,7 @@ const CategorySection2 = () => {
           />
         </TouchableOpacity> 
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Groceries</Text>
         </TouchableOpacity> 
       </View>
       
@@ -60,7 +65,7 @@ const CategorySection2 = () => {
           source={require('wallet-app/assets/coffee.png')}
           style={styles.icon}
         /> 
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>CoffeeToGo</Text>
       </View>
       {/* charity section*/}
       <View style={styles.iconContainer}>
@@ -71,7 +76,7 @@ const CategorySection2 = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Delivery</Text>
         </TouchableOpacity>
       </View>
       {/* gifts section*/}
@@ -80,7 +85,7 @@ const CategorySection2 = () => {
           source={require('wallet-app/assets/restaurant.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Restaurants</Text>
       </View>
       
     </View>
@@ -97,11 +102,10 @@ const CategorySection1 = () => {
           <Image
             source={require('wallet-app/assets/healthcare.png')}
             style={styles.icon}
-            resizeMode="contain"
           />
         </TouchableOpacity> 
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Healthcare</Text>
         </TouchableOpacity> 
       </View>
       
@@ -111,7 +115,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/travel.png')}
           style={styles.icon}
         /> 
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Travel</Text>
       </View>
       {/* charity section*/}
       <View style={styles.iconContainer}>
@@ -122,7 +126,7 @@ const CategorySection1 = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Charity</Text>
         </TouchableOpacity>
       </View>
       {/* gifts section*/}
@@ -131,7 +135,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/sports.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Sports</Text>
       </View>
       {/* gym section*/}
       <View style={styles.iconContainer}>
@@ -139,7 +143,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/gym.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Gym</Text>
       </View>
       {/* education section*/}
       <View style={styles.iconContainer}>
@@ -147,7 +151,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/education.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Education</Text>
       </View>
       {/* drinks section*/}
       <View style={styles.iconContainer}>
@@ -155,7 +159,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/drinks.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Drinks</Text>
       </View>
       {/* ent section*/}
       <View style={styles.iconContainer}>
@@ -163,7 +167,7 @@ const CategorySection1 = () => {
           source={require('wallet-app/assets/entertainment.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Entertainment</Text>
       </View>
     </View>
   );
@@ -183,7 +187,7 @@ const CategorySection3 = () => {
           />
         </TouchableOpacity> 
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Gas</Text>
         </TouchableOpacity> 
       </View>
       
@@ -193,7 +197,7 @@ const CategorySection3 = () => {
           source={require('wallet-app/assets/parking.png')}
           style={styles.icon}
         /> 
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Parking</Text>
       </View>
       {/* charity section*/}
       <View style={styles.iconContainer}>
@@ -204,7 +208,7 @@ const CategorySection3 = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Taxi</Text>
         </TouchableOpacity>
       </View>
       {/* gifts section*/}
@@ -213,7 +217,7 @@ const CategorySection3 = () => {
           source={require('wallet-app/assets/publictransport.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Transport</Text>
       </View>
       
     </View>
@@ -232,7 +236,7 @@ const CategorySection4 = () => {
           />
         </TouchableOpacity> 
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>General</Text>
         </TouchableOpacity> 
       </View>
       
@@ -243,7 +247,7 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/babyfund.png')}
           style={styles.icon}
         /> 
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Baby Fund</Text>
       </View>
       {/* charity section*/}
       <View style={styles.iconContainer}>
@@ -254,7 +258,7 @@ const CategorySection4 = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.iconText}>x</Text>
+          <Text style={styles.iconText}>Vacation Fund</Text>
         </TouchableOpacity>
       </View>
       {/* gifts section*/}
@@ -263,7 +267,7 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/carfund.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Car Fund</Text>
       </View>
       {/* gym section*/}
       <View style={styles.iconContainer}>
@@ -271,7 +275,7 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/educationfund.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Education Fund</Text>
       </View>
       {/* education section*/}
       <View style={styles.iconContainer}>
@@ -279,7 +283,7 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/healthcarefund.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Helathcare Fund</Text>
       </View>
       {/* drinks section*/}
       <View style={styles.iconContainer}>
@@ -287,7 +291,7 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/housing.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x</Text>
+        <Text style={styles.iconText}>Housing</Text>
       </View>
       {/* ent section*/}
       <View style={styles.iconContainer}>
@@ -295,11 +299,92 @@ const CategorySection4 = () => {
           source={require('wallet-app/assets/shoppingfund.png')}
           style={styles.icon}
         />
-        <Text style={styles.iconText}>x </Text>
+        <Text style={styles.iconText}>Shopping Fund</Text>
       </View>
     </View>
   );
 };
+
+const CategorySection5 = () => {
+  return (
+    <View style={styles.categorysection1}>
+      {/* healthcare section*/}
+      <View style={styles.iconContainer}> 
+        <TouchableOpacity>
+          <Image
+            source={require('wallet-app/assets/Multimedia_bill.png')}
+            style={styles.icon}
+          />
+        </TouchableOpacity> 
+        <TouchableOpacity>
+          <Text style={styles.iconText}>Multimedia Bill</Text>
+        </TouchableOpacity> 
+      </View>
+      
+      {/* travel section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/Phone_bill.png')}
+          style={styles.icon}
+        /> 
+        <Text style={styles.iconText}>Phone Bill</Text>
+      </View>
+      {/* charity section*/}
+      <View style={styles.iconContainer}>
+        <TouchableOpacity>
+          <Image
+            source={require('wallet-app/assets/Water_bill.png')}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.iconText}>Water Bill</Text>
+        </TouchableOpacity>
+      </View>
+      {/* gifts section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/Insurance.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.iconText}>Insurance</Text>
+      </View>
+      {/* gym section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/Rent.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.iconText}>Rent</Text>
+      </View>
+      {/* education section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/Electricity_bill.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.iconText}>Electricity Bill</Text>
+      </View>
+      {/* drinks section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/Garbage_bill.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.iconText}>Garbage Bill</Text>
+      </View>
+      {/* ent section*/}
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('wallet-app/assets/gas_bill.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.iconText}>Gas Bill</Text>
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -336,8 +421,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   iconContainer: {
-    width: 55,
-    height:70,
+    width:60,
+    height:75,
+    
   
     alignItems: 'center',
     marginHorizontal: 10,
@@ -354,19 +440,14 @@ const styles = StyleSheet.create({
     
   },
   icon: {
-    
-    height: 40,
-    width: 40,
-    backgroundColor: 'blue',
-    
-    
-
-
+    borderRadius: 10,
+    height: 45,
+    width: 45,
     
   },
   iconText: {
     marginTop: 5,
-    fontSize: 10,
+    fontSize: 8,
     textAlign: 'center',
     fontFamily:'Arial', 
   },
