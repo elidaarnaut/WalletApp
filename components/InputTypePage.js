@@ -4,8 +4,7 @@ import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 
-// Latest version of the Code, need to fix the smoothness of the Graf slider (the slider cards) and adjust the color scheme
-// will need to add detail for each of the items
+// Latest version of the Code, 15.05
 
 
 export default function InputTypePage() {
@@ -22,9 +21,9 @@ export default function InputTypePage() {
           <Text style={styles.cardText}>Manual Input</Text>
         </TouchableOpacity>
 
-        <View style={styles.textCard}>
+        <TouchableOpacity style={styles.textCard}>
           <Text style={styles.cardText}>Scan Input</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       
  
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#F6F6E9',
+    backgroundColor: '#F9F7F7',
     paddingTop: 55,
     alignItems: 'center',
     justifyContent: 'center',
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   menu: {
-    backgroundColor: '#FD5F00',
+    backgroundColor: '#112D4E',
     height: 100,
     width: '100%',
     position: 'absolute',
@@ -117,12 +116,13 @@ const styles = StyleSheet.create({
   icon: {
     width: 40,
     height: 40,
+    tintColor: '#FFFFFF'
     
   },
   inputIcon: {
     width: 60,
     height: 60,
-    backgroundColor: '#005792',
+    backgroundColor: '#3F72AF',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     elevation: 9, //used to control the depth of the shadow on Android devices
   },
   textCard: {
-    backgroundColor: '#A8DADC',
+    backgroundColor: '#DBE2EF',
     borderRadius: 20,
     width: '75%',
     height: '25%',
@@ -154,10 +154,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 30,
     padding: 10,
+    shadowColor: '#000', //color of the shadow
+    shadowOffset: { //offset of the shadow
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.47, //opacity of the shadow
+    shadowRadius: 10.00, //blur radius of the shadow.
+
+    elevation: 9, //used to control the depth of the shadow on Android devices
+ 
 
   },
   cardText: {
     fontSize: 30,
+    fontFamily: 'Arial',
+    fontWeight: '500',
+    color: '#112D4E',
   },
   
 });
