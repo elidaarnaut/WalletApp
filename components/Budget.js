@@ -1,79 +1,84 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView, Dimensions}from 'react-native';
-import {BarChart } from 'react-native-chart-kit';
+import {StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
+//import { BarChart } from 'react-native-chart-kit';
+import { StatusBar } from 'expo-status-bar';
+
 
 const {width, height}= Dimensions.get('window');
 
-const Budget = () => {
+export default Budget = () => {
   return (
     <View
-      style={[
-        styles.container,
-        {
-          flexDirection: 'column',
-          backgroundColor: 'rgb(245, 232, 228)',
-        },
-      ]}
-    >
-      <View style={Navbar.container}>
-        <Image source={require('./assets/strijela.png')} style={Slika.image}/>
-        <Text style={Budget.text}>Budget</Text>
-        <Text style={Budget.text}>Stats</Text>
+      style={[styles.container]}>
+        <StatusBar style="auto" />
+      <View style={[styles.navbar]}>
+        <TouchableOpacity>
+          <Image source={require('./assets/left-arrow.png')} style={styles.icon}/>
+        </TouchableOpacity>
+        <Text style={[styles.text]}>Budget Statistics</Text>
+        <TouchableOpacity>
+          <Image source={require('./assets/plannedpayment.png')} style={styles.icon}/>
+        </TouchableOpacity>
       </View>
-      <View style={{ flex: 4, backgroundColor: 'rgb(245, 232, 228)', justifyContent:'space-evenly' }}>
-      <BarChart
-        data={{
-          labels: [ 'Spent', 'Left', 'Total Budget'],
-          datasets: [
-            {
-              data: [20, 45, 65],
-            },
-          ],
-        }}
-        width={Dimensions.get('window').width - 40}
-        height={220}
-        yAxisLabel={'BAM'}
-        chartConfig={{
-          backgroundColor: 'rgb(245, 232, 228)',
-          backgroundGradientFrom: 'rgb(245, 232, 228)',
-          backgroundGradientTo: 'rgb(245, 232, 228)',
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(65, 21, 48, ${opacity})`,
-          style: {
-            borderRadius: 20,
-            marginTop: 20
-          },
-        }}
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
-      
+      <View style={[styles.graphContainer]}>
       </View>
-      <View style={{flex: 4, backgroundColor: 'rgb(65, 21, 48)', borderRadius: 15, paddingTop: 20, paddingBottom:20, }}>
-        <ScrollView contentContainerStyle={Stats.container}>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View>
-          <View style={Stats.item}><Text>Stat1</Text></View> 
+      <View style={[styles.statsContainer]}>
+        <ScrollView>
+            <View style={styles.stat}><Text>Stat1</Text></View>
+            <View style={styles.stat}><Text>Stat2</Text></View>
+            <View style={styles.stat}><Text>Stat3</Text></View>
+            <View style={styles.stat}><Text>Stat4</Text></View>
+            <View style={styles.stat}><Text>Stat5</Text></View>
+            <View style={styles.stat}><Text>Stat6</Text></View>
         </ScrollView>
       </View>
+
     </View>
   );
-      };
+};
 
-const Stats = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 20,
+    backgroundColor: 'rgb(245, 232, 228)',
   },
-  item: {
+  navbar: {
+    height: '10%',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: 'rgb(245, 199, 169)',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  graphContainer: {
+    height: '45%',
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: 'rgb(245, 232, 228)',
+  },
+  statsContainer: {
+    height: '45%',
+    width: '100%',
+    padding: 20,
+    backgroundColor: 'rgb(65, 21, 48)',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  text: {
+    color: 'black',
+    fontSize: 20,
+  },
+  icon: {
+    width: 30,
+    height: 30,
+  },
+  stat: {
     width: '100%',
     height: 50,
     backgroundColor: 'rgb(245, 232, 228)',
@@ -83,41 +88,3 @@ const Stats = StyleSheet.create({
     borderRadius: 20,
   }
 });
-
-const Navbar = StyleSheet.create({  container: {
-    flexDirection: 'row',
-    backgroundColor: 'rgb(245, 199, 169)',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5
-  },
-});
-
-const Budget = StyleSheet.create({
-  text: {
-    color: 'black',
-    fontSize: 20,
-  },
-});
-
-const Slika = StyleSheet.create({
-  image: {
-    width: 30,
-    height: 30,
-    marginRight: 20,
-  }
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
-    paddingBottom: Platform.OS === 'android' ? 25 : 0,
-  },
-});
-
-export default Budget;
