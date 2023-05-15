@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+
 const { width, height } = Dimensions.get("window");
 export default function App() {
   const [payments, setPayments] = useState([
@@ -17,6 +18,7 @@ export default function App() {
     { id: 3, name: "Gym", amount: 30, date: "September 01", type: "expense" },
     { id: 4, name: "Salary", amount: 1000, date: "April 01", type: "income" },
   ]);
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -42,8 +44,10 @@ export default function App() {
               )}
             </View>
           ))}
-          <Image source={require("./assets/plus.png")} style={styles.image} />
         </ScrollView>
+      </View>
+      <View style={styles.plus}>
+        <Image source={require("./assets/plus.png")} style={styles.plusImage} />
       </View>
       <View style={styles.bottom}>
         <TouchableOpacity>
@@ -56,39 +60,48 @@ export default function App() {
           <Text style={styles.button}>Expense</Text>
         </TouchableOpacity>
       </View>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-
     backgroundColor: "#BAD7E9",
     paddingTop: Platform.OS === "android" ? 25 : 0,
     paddingBottom: Platform.OS === "android" ? 25 : 0,
   },
   text: {
     color: "#FCFFE7",
-    fontSize: 20,
+    fontSize: 25,
   },
   top: {
+    top: 10,
     flex: 1,
     paddingHorizontal: 15,
     flexDirection: "row",
-    top: 20,
-    backgroundColor: "#13334C",
+    backgroundColor: "#BAD7E9",
     justifyContent: "space-between",
     alignItems: "center",
   },
   image: {
-    width: 27,
-    height: 27,
+    width: 30,
+    height: 30,
+  },
+  plusImage: {
+    width: 50,
+    height: 50,
+    alignSelf: "center",
+  },
+  plus: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    paddingBottom: 5,
   },
   bottom: {
     flex: 1,
     backgroundColor: "#6DA9E4",
-
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -107,7 +120,6 @@ const styles = StyleSheet.create({
   payment: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderBottomColor: "#ccc",
