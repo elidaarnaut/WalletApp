@@ -1,23 +1,34 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
-//import { BarChart } from 'react-native-chart-kit';
-import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
 
 
-const {width, height}= Dimensions.get('window');
-
-export default Budget = () => {
+export default function Budget() {
+  const navigation = useNavigation();
+  const handlePlannedPaymmentPress = () => {
+    navigation.navigate('PlannedPayments');
+  };
+  
+  const handleBackArrowPress = () => {
+    navigation.navigate('HomeScreen');
+  }
   return (
     <View
       style={[styles.container]}>
-        <StatusBar style="auto" />
       <View style={[styles.navbar]}>
-        <TouchableOpacity>
-          <Image source={require('./assets/left-arrow.png')} style={styles.icon}/>
+        <TouchableOpacity onPress={handleBackArrowPress}>
+          <Image 
+            source={require('../assets/left-arrow.png')} 
+            style={styles.icon}/>
         </TouchableOpacity>
+
         <Text style={[styles.text]}>Budget Statistics</Text>
-        <TouchableOpacity>
-          <Image source={require('./assets/plannedpayment.png')} style={styles.icon}/>
+
+        <TouchableOpacity 
+          onPress={handlePlannedPaymmentPress}>
+          <Image 
+            source={require('../assets/plannedpayment.png')} 
+            style={styles.icon}/>
         </TouchableOpacity>
       </View>
       <View style={[styles.graphContainer]}>
@@ -42,46 +53,69 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     paddingTop: 20,
-    backgroundColor: 'rgb(245, 232, 228)',
+    backgroundColor: '#F9F7F7',
+    
   },
   navbar: {
-    height: '10%',
-    width: '100%',
+    height: '8%',
+    width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+
+    marginTop: 30,
     padding: 20,
-    backgroundColor: 'rgb(245, 199, 169)',
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    backgroundColor: '#112D4E',
+
+    borderRadius: 20,
+    //borderBottomLeftRadius: 15,
+    //borderBottomRightRadius: 15,
   },
   graphContainer: {
-    height: '45%',
-    width: '100%',
+    height: '30%',
+    width: '80%',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignSelf: 'center',
+    borderRadius: 20,
+    marginTop: 20,
+    margin: 10,
     padding: 20,
-    backgroundColor: 'rgb(245, 232, 228)',
+    backgroundColor: '#DBE2EF',
   },
   statsContainer: {
-    height: '45%',
-    width: '100%',
+    height: '60%',
+    width: '90%',
     padding: 20,
-    backgroundColor: 'rgb(65, 21, 48)',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    alignSelf: 'center',
+    //backgroundColor: 'rgb(65, 21, 48)',
+    //borderTopLeftRadius: 15,
+    //borderTopRightRadius: 15,
+    shadowColor: '#000', //color of the shadow
+    shadowOffset: { //offset of the shadow
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37, //opacity of the shadow
+    shadowRadius: 6.65, //blur radius of the shadow.
+
+    elevation: 9,
   },
   text: {
-    color: 'black',
+    color: 'white',
+    fontWeight: '500',
     fontSize: 20,
   },
   icon: {
     width: 30,
     height: 30,
+    tintColor: '#FFFFFF'
   },
   stat: {
     width: '100%',
-    height: 50,
-    backgroundColor: 'rgb(245, 232, 228)',
+    height: 70,
+    backgroundColor: '#DBE2EF',
     marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
