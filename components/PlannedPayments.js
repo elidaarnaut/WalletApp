@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
@@ -19,12 +20,22 @@ export default function App() {
     { id: 4, name: "Salary", amount: 1000, date: "April 01", type: "income" },
   ]);
 
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.navigate('HomeScreen');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Image source={require("./assets/search.png")} style={styles.image} />
+        <TouchableOpacity onPress={handleBackPress}>
+          <Image 
+            source={require("../assets/left-arrow.png")} style={styles.image} />
+
+        </TouchableOpacity>
         <Text style={styles.text}>Planned Payments</Text>
-        <Image source={require("./assets/sort.png")} style={styles.image} />
+        <Image source={require("../assets/sort.png")} style={styles.image} />
       </View>
       <View style={styles.kont}>
         <ScrollView>
@@ -47,75 +58,101 @@ export default function App() {
         </ScrollView>
       </View>
       <View style={styles.plus}>
-        <Image source={require("./assets/plus.png")} style={styles.plusImage} />
+        <Image source={require("../assets/plus.png")} style={styles.plusImage} />
       </View>
       <View style={styles.bottom}>
-        <TouchableOpacity>
-          <Text style={styles.button}>All</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity>
           <Text style={styles.button}>Income</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.button}>All</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.button}>Expense</Text>
         </TouchableOpacity>
       </View>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "#BAD7E9",
+    backgroundColor: "#F9F7F7",
     paddingTop: Platform.OS === "android" ? 25 : 0,
     paddingBottom: Platform.OS === "android" ? 25 : 0,
   },
   text: {
-    color: "#FCFFE7",
+    color: "#000",
     fontSize: 25,
   },
   top: {
-    top: 10,
-    flex: 1,
+    //top: 10,
+    //flex: 1,
+    width: '90%',
+    height: '10%',
     paddingHorizontal: 15,
+    marginTop: 55,
     flexDirection: "row",
-    backgroundColor: "#BAD7E9",
+    backgroundColor: "#DBE2EF",
     justifyContent: "space-between",
     alignItems: "center",
+    alignSelf: 'center',
+    borderRadius: 20,
+    marginBottom: 20,
   },
   image: {
     width: 30,
     height: 30,
   },
   plusImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     alignSelf: "center",
   },
   plus: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    paddingBottom: 5,
+    width: 60,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    marginLeft: -30, // half of the width of inputIcon component
+    marginTop: -30,
   },
   bottom: {
-    flex: 1,
-    backgroundColor: "#6DA9E4",
+    //flex: 1,
+    height: 100,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: '100%',
+    backgroundColor: "#112D4E",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
     paddingHorizontal: 15,
   },
   kont: {
-    flex: 10,
+    //flex: 10,
+    height: '60%',
+    width: '90%',
+    alignSelf: 'center',
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: '#DBE2EF',
+    borderRadius: 20,
   },
   button: {
     paddingHorizontal: 20,
     fontSize: 20,
+    color: '#FFF'
   },
   payment: {
     flexDirection: "row",

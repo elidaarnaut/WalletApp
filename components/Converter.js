@@ -1,18 +1,10 @@
-
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-
-
-
-export default function App() {
+export default function Converter() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <Text>Testttttx</Text>
-      <Text>Testttttx</Text>
-
       <Header></Header>
       <Options></Options>
       <InputField></InputField>
@@ -22,9 +14,14 @@ export default function App() {
 }
 
 const Header = () => {
+  const navigation = useNavigation();
+  const handleBackArrowPress = () => {
+    navigation.navigate('HomeScreen');
+  }
+
   return(  
     <View  style={styles.header}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleBackArrowPress}>
         <Image 
         source={require('se-project/assets/cancelIcon.png')}
         style={styles.inputPageIcon}
@@ -46,7 +43,7 @@ const Options = () => {
   return(
     <View style={styles.options}>
       <TouchableOpacity style={styles.optionsTag}>
-        <Text>CONVERTER</Text>
+        <Text style={styles.textOP}>CONVERTER</Text>
       </TouchableOpacity>
 
     </View>
@@ -92,14 +89,15 @@ const Output = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F9F7F7',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   },
 
   header: {
-    backgroundColor: '#89375F',
-    height: 100,
+    backgroundColor: '#112D4E',
+    height: '11%',
     width: '100%',
     position: 'absolute',
     top: 0,
@@ -109,17 +107,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     paddingBottom: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
 
   inputPageIcon: {
     width: 30,
     height: 30,
+    tintColor: '#FFFFFF',
+    alignSelf: 'center',
   },
 
   options: {
-    backgroundColor: '#CE5959',
-    height: 60,
+    //backgroundColor: '#CE5959',
     width: '100%',
     position: 'absolute',
     top: 100,
@@ -130,20 +129,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom: 5,
     paddingHorizontal: 5,
+    marginVertical: 10,
   },
 
   optionsTag: {
-    backgroundColor: '#CE5959',
-    width: '49%',
+    backgroundColor: '#3F72AF',
+    width: '45%',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 20,
+    
 
   },
 
   inputField: {
-    backgroundColor: '#BACDDB',
-    height: 180,
+    backgroundColor: '#F9F7F7',
+    height: '20%',
     width: '100%',
     position: 'absolute',
     top: 160,
@@ -172,8 +174,8 @@ const styles = StyleSheet.create({
   },
 
   output: {
-    backgroundColor: '#BACDDB',
-    height: 510,
+    backgroundColor: '#F9F7F7',
+    height: '25%',
     width: '100%',
     position: 'absolute',
     top: 340,
@@ -187,6 +189,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
 
   },
-
+  textOP: {
+    color: '#FFF',
+    fontWeight: '600',
+  }
 
 });

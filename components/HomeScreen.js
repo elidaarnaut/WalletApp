@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 
@@ -9,7 +10,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'rea
 
 export default function HomeScreen() {
   const window = Dimensions.get('window');
-
   return (
     <View style={styles.container}>
 
@@ -108,33 +108,55 @@ const MonthSlider = () => {
 };
 
 const Menu = () => {
+  const navigation = useNavigation();
+  const handleHomeScreenPress = () => {
+    navigation.navigate('HomeScreen');
+  }
+
+  const handlePlusButtonPress = () => {
+    navigation.navigate('InputTypePage');
+  };
+
+  const handleConverterPress = () => {
+    navigation.navigate('Converter');
+  }
+
+  const handleBudgetPress = () => {
+    navigation.navigate('Budget');
+  };
+
+  const handlePlannedPaymmentPress = () => {
+    navigation.navigate('PlannedPayments');
+  };
+
   return(
     <View style={styles.menu}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleHomeScreenPress}>
         <Image 
           source={require('se-project/assets/home.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleBudgetPress}>
         <Image 
         source={require('se-project/assets/budget.png')}
         style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.inputIcon}>
+      <TouchableOpacity style={styles.inputIcon}
+      onPress={handlePlusButtonPress}>
         <Image 
-        source={require('se-project/assets/plus1.png')}
-        style={styles.icon}
+          source={require('se-project/assets/plus1.png')}
+          style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handlePlannedPaymmentPress}>
         <Image 
         source={require('se-project/assets/plannedpayment.png')}
         style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleConverterPress}>
         <Image 
         source={require('se-project/assets/calculator.png')}
         style={styles.icon}
@@ -280,14 +302,14 @@ const styles = StyleSheet.create({
     elevation: 9, //used to control the depth of the shadow on Android devices
   },
   itemTitle: {
-    fontFamily: 'Arial',
+  //  fontFamily: 'Arial',
     fontWeight: '500',
     fontSize: 15,
     color: '#112D4E',
 
   },
   itemMoney: {
-    fontFamily: 'Arial',
+    //fontFamily: 'Arial',
     fontWeight: '500',
     fontSize: 15,
     color: '#112D4E',

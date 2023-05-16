@@ -1,7 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
-
 export default function Categories() {
+
+  
   return ( 
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -35,11 +37,15 @@ export default function Categories() {
 }
 
 const Title = () => {
+  const navigation = useNavigation();
+  const handleBackPress = () => {
+    navigation.navigate('InputPage');
+  };
   return(
     <View style={styles.title}>
-     <TouchableOpacity>
+     <TouchableOpacity onPress={handleBackPress}>
       <Image
-        source={require('wallet-app/assets/left.png')}
+        source={require('../assets/left.png')}
         style={styles.iconleft}
       /> 
      </TouchableOpacity> 
@@ -122,7 +128,7 @@ const CategorySection2 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/grocery.png')}
+            source={require('../assets/grocery.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -135,7 +141,7 @@ const CategorySection2 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/coffee-cup.png')}
+            source={require('../assets/coffee-cup.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -148,7 +154,7 @@ const CategorySection2 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/shipped.png')}
+            source={require('../assets/shipped.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -161,7 +167,7 @@ const CategorySection2 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/restaurant.png')}
+            source={require('../assets/restaurant.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -183,7 +189,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/first-aid-kit.png')}
+            source={require('../assets/first-aid-kit.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -196,7 +202,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/around.png')}
+            source={require('../assets/around.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -209,7 +215,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/charity1.png')}
+            source={require('../assets/charity1.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -222,7 +228,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/sportss.png')}
+            source={require('../assets/sportss.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -235,7 +241,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/weight.png')}
+            source={require('../assets/weight.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -248,7 +254,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/graduation-cap.png')}
+            source={require('../assets/graduation-cap.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -261,7 +267,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/cocktail.png')}
+            source={require('../assets/cocktail.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -274,7 +280,7 @@ const CategorySection1 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/movies.png')}
+            source={require('../assets/movies.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -295,7 +301,7 @@ const CategorySection3 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/gas-station.png')}
+            source={require('../assets/gas-station.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -308,7 +314,7 @@ const CategorySection3 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/parking.png')}
+            source={require('../assets/parking.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -321,7 +327,7 @@ const CategorySection3 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/taxi.png')}
+            source={require('../assets/taxi.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -334,7 +340,7 @@ const CategorySection3 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/public-transport.png')}
+            source={require('../assets/public-transport.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -355,7 +361,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/financial-profit.png')}
+            source={require('../assets/financial-profit.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -368,7 +374,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/pacifier.png')}
+            source={require('../assets/pacifier.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -381,7 +387,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/holiday.png')}
+            source={require('../assets/holiday.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -394,7 +400,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/spare-parts.png')}
+            source={require('../assets/spare-parts.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -407,7 +413,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/cash.png')}
+            source={require('../assets/cash.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -420,7 +426,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/mindfulness.png')}
+            source={require('../assets/mindfulness.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -433,7 +439,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/house.png')}
+            source={require('../assets/house.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -446,7 +452,7 @@ const CategorySection4 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/funds.png')}
+            source={require('../assets/funds.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -465,7 +471,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/content.png')}
+            source={require('../assets/content.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -478,7 +484,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/smartphone.png')}
+            source={require('../assets/smartphone.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -491,7 +497,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/faucet.png')}
+            source={require('../assets/faucet.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -504,7 +510,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/life-insurance.png')}
+            source={require('../assets/life-insurance.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -517,7 +523,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/rent.png')}
+            source={require('../assets/Rent.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -530,7 +536,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/electricity-bill.png')}
+            source={require('../assets/electricity-bill.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -543,7 +549,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/bin.png')}
+            source={require('../assets/bin.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -556,7 +562,7 @@ const CategorySection5 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/natural-gas.png')}
+            source={require('../assets/natural-gas.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -576,7 +582,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}> 
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/laundry.png')}
+            source={require('../assets/laundry.png')}
             style={styles.icon}
           />
         </TouchableOpacity> 
@@ -589,7 +595,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/cosmetics.png')}
+            source={require('../assets/cosmetics.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -602,7 +608,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/watch.png')}
+            source={require('../assets/watch.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -615,7 +621,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/shoes.png')}
+            source={require('../assets/shoes.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -628,7 +634,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/cream.png')}
+            source={require('../assets/cream.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -641,7 +647,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/nursery.png')}
+            source={require('../assets/nursery.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -654,7 +660,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/vacuum-cleaner.png')}
+            source={require('../assets/vacuum-cleaner.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
@@ -667,7 +673,7 @@ const CategorySection6 = () => {
       <View style={styles.iconContainer}>
         <TouchableOpacity>
           <Image
-            source={require('wallet-app/assets/gift-box.png')}
+            source={require('../assets/gift-box.png')}
             style={styles.icon}
           />
         </TouchableOpacity>

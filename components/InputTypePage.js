@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 // Latest version of the Code, 15.05
@@ -10,6 +11,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'rea
 export default function InputTypePage() {
   const window = Dimensions.get('window');
 
+  const navigation = useNavigation();
+
+  const handleManualInputPress = () => {
+    navigation.navigate('InputPage');
+  };
+  
+  
   return (
     <View style={styles.container}>
 
@@ -17,7 +25,7 @@ export default function InputTypePage() {
       The auto property means it will adjust based on the backgrond color, e.g white background -> dark icons and time */}
       <StatusBar style="auto" />
       <View style={styles.mainContainer}>
-        <TouchableOpacity style={styles.textCard}>
+        <TouchableOpacity onPress={handleManualInputPress} style={styles.textCard}>
           <Text style={styles.cardText}>Manual Input</Text>
         </TouchableOpacity>
 
@@ -35,33 +43,53 @@ export default function InputTypePage() {
 
 
 const Menu = () => {
+  const navigation = useNavigation();
+  const handleHomeScreenPress = () => {
+    navigation.navigate('HomeScreen');
+  }
+
+  const handlePlusButtonPress = () => {
+    navigation.navigate('InputTypePage');
+  };
+
+  const handleConverterPress = () => {
+    navigation.navigate('Converter');
+  }
+
+  const handleBudgetPress = () => {
+    navigation.navigate('Budget');
+  };
+
+  const handlePlannedPaymmentPress = () => {
+    navigation.navigate('PlannedPayments');
+  };
   return(
     <View style={styles.menu}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleHomeScreenPress}>
         <Image 
           source={require('se-project/assets/home.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleBudgetPress} >
         <Image 
         source={require('se-project/assets/budget.png')}
         style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.inputIcon}>
+      {/*<TouchableOpacity style={styles.inputIcon}>
         <Image 
         source={require('se-project/assets/plus1.png')}
         style={styles.icon}
         />
-      </TouchableOpacity>
-      <TouchableOpacity>
+  </TouchableOpacity>*/}
+      <TouchableOpacity onPress={handlePlannedPaymmentPress}>
         <Image 
         source={require('se-project/assets/plannedpayment.png')}
         style={styles.icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleConverterPress}>
         <Image 
         source={require('se-project/assets/calculator.png')}
         style={styles.icon}
