@@ -1,14 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 
 export default function Converter() {
   return (
     <View style={styles.container}>
       <Header></Header>
-      <Options></Options>
-      <InputField></InputField>
-      <Output></Output>
+      <Menu></Menu>
+      <MenuOutput></MenuOutput>
+
+
     </View>
   );
 }
@@ -86,6 +88,130 @@ const Output = () => {
   );
 };
 
+const Menu = () => {
+  const options = ['BAM', 'EUR', 'USD', 'GBP', 'RSD', 'CHF', 'AED', 'TRY', 'SEK', 'RUB'];
+  const [selectedOption, setSelectedOption] = useState('');
+  const [visible, setVisible] = useState(false);
+
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+    setVisible(false);
+  };
+
+  return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
+    <View style={styles.select}>
+      <TouchableOpacity onPress={() => setVisible(true)}>
+        <Text style={styles.textOP}>Select Currency</Text>
+      </TouchableOpacity>
+      
+      <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
+      <View style={styles.inputField}>
+        <TextInput variant="standard" label="Label"
+        style={styles.input}
+        keyboardType='numeric'
+        />
+        <Text style={styles.inputText}>{selectedOption}</Text>
+        
+      </View>
+      
+    </TouchableWithoutFeedback>
+      <Modal visible={visible} animationType="slide" transparent>
+        <View style={styles.menuOptions}>
+          {options.map((option) => (
+            <TouchableOpacity
+              key={option}
+              onPress={() => handleSelect(option)}
+              style={{ padding: 10 }}
+            >
+              <Text>{option}</Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity onPress={() => setVisible(false)} style={{ padding: 10 }}>
+            <Text style={{ justifyContent: 'center', alignItems: 'center' }}>Cancel</Text>
+          </TouchableOpacity>
+
+          
+        </View>
+
+      </Modal>
+      {/*<Text>Selected Option: {selectedOption}</Text>*/}
+      
+    </View>
+
+    
+    </TouchableWithoutFeedback>
+    
+  );
+};
+
+const MenuOutput = () => {
+  const options = ['BAM', 'EUR', 'USD', 'GBP', 'RSD', 'CHF', 'AED', 'TRY', 'SEK', 'RUB'];
+  const [selectedOption, setSelectedOption] = useState('');
+  const [visible, setVisible] = useState(false);
+
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+    setVisible(false);
+  };
+
+  return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
+    <View style={styles.selectOutput}>
+      <TouchableOpacity onPress={() => setVisible(true)}>
+        <Text style={styles.textOP}>Select Currency</Text>
+      </TouchableOpacity>
+      
+      <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
+      <View style={styles.inputField}>
+        <TextInput variant="standard" label="Label"
+        style={styles.input}
+        keyboardType='numeric'
+        />
+        <Text style={styles.inputText}>{selectedOption}</Text>
+        
+      </View>
+      
+    </TouchableWithoutFeedback>
+      <Modal visible={visible} animationType="slide" transparent>
+        <View style={styles.menuOptions}>
+          {options.map((option) => (
+            <TouchableOpacity
+              key={option}
+              onPress={() => handleSelect(option)}
+              style={{ padding: 10 }}
+            >
+              <Text>{option}</Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity onPress={() => setVisible(false)} style={{ padding: 10 }}>
+            <Text style={{ justifyContent: 'center', alignItems: 'center' }}>Cancel</Text>
+          </TouchableOpacity>
+
+          
+        </View>
+
+      </Modal>
+      {/*<Text>Selected Option: {selectedOption}</Text>*/}
+      
+    </View>
+
+    
+    </TouchableWithoutFeedback>
+    
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -144,18 +270,16 @@ const styles = StyleSheet.create({
   },
 
   inputField: {
-    backgroundColor: '#F9F7F7',
-    height: '20%',
+    height: '100%',
     width: '100%',
     position: 'absolute',
-    top: 160,
+    top: 70,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    alignItems: 'top',
-    justifyContent: 'space-between',
-    paddingTop: 70,
-    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 0,
+    paddingRight: 0,
 
   },
 
@@ -170,7 +294,7 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
-    fontSize: 40
+    fontSize: 20
   },
 
   output: {
@@ -192,6 +316,47 @@ const styles = StyleSheet.create({
   textOP: {
     color: '#FFF',
     fontWeight: '600',
-  }
+  },
+
+  select: {
+    
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#3F72AF',
+    position: 'absolute',
+    top: 120,
+    width: '45%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+
+  },
+
+  menuOptions: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F9F7F7',
+
+    
+
+  },
+
+  selectOutput: {
+    
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#3F72AF',
+    position: 'absolute',
+    top: 350,
+    width: '45%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+
+  },
+
 
 });
