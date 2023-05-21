@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,12 +10,34 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
+  VirtualizedList,
 } from "react-native";
+
 export default function Categories() {
+
+  const [subcategory, setSubcategory] = useState([]);
+
+  useEffect(() => {
+    async function getSubcategories() {
+      try {
+        const subcategory = await axios.get(
+          "http://127.0.0.1:8000/subcategory"
+        );
+        console.log(subcategory.data);
+        setSubcategory(subcategory.data);
+      } catch (error) {}
+    }
+    getSubcategories();
+  }, []);
+
   return (
+  
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <StatusBar style="auto" /> 
+      
+      <ScrollView contentContainerStyle={styles.scrollContainer}> 
+     
         <Title></Title>
         <Title1></Title1>
         <Divider1> </Divider1>
@@ -622,6 +646,7 @@ const CategorySection6 = () => {
           <Text style={styles.iconText}>Gifts</Text>
         </TouchableOpacity>
       </View>
+      
     </View>
   );
 };
