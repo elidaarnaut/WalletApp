@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './components/HomeScreen';
-import InputTypePage from './components/InputTypePage';
-import Budget from './components/Budget';
-import PlannedPayments from './components/PlannedPayments';
-import Converter from './components/Converter';
-import InputPage from './components/InputPage';
-import Categories from './components/Categories';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./components/HomeScreen";
+import InputTypePage from "./components/InputTypePage";
+import Budget from "./components/Budget";
+import PlannedPayments from "./components/PlannedPayments";
+import Converter from "./components/Converter";
+import InputPage from "./components/InputPage";
+import Categories from "./components/Categories";
 
 const Stack = createStackNavigator();
 
