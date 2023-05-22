@@ -45,14 +45,14 @@ const SpendingsView = () => {
 
 //Individual items in the SpendingsView
 const SpendingsItem = () => {
-  return(
+  return (
     <View style={styles.spendingItem}>
-    <Text style={styles.itemTitle}>Spending Item</Text>
-    <Text style={styles.itemMoney}>24 KM</Text>
-    <Image 
-        source={require('se-project/assets/right-arrowW.png')}
+      <Text style={styles.itemTitle}>Spending Item</Text>
+      <Text style={styles.itemMoney}>24 KM</Text>
+      <Image
+        source={require("../assets/right-arrowW.png")}
         style={styles.rightArrow}
-        />
+      />
     </View>
   );
 };
@@ -60,49 +60,44 @@ const SpendingsItem = () => {
 
 const GraphSlider = () => {
   const window = Dimensions.get('window');
-  return(
-    <View style={[styles.graphSlider, {minWidth: window.width}]}>
-      <ScrollView 
-        horizontal={true}
-      >
-        <View style={[styles.sliderCard,{width: window.width*0.8} ]}>
+  return (
+    <View style={[styles.graphSlider, { minWidth: window.width }]}>
+      <ScrollView horizontal={true}>
+        <View style={[styles.sliderCard, { width: window.width * 0.8 }]}>
           <Image
-            source={require('se-project/assets/pie-graph.png')}
+            source={require("../assets/pie-graph.png")}
             style={styles.graphs}
           />
         </View>
-        <View style={[styles.sliderCard,{width: window.width*0.8} ]}>
+        <View style={[styles.sliderCard, { width: window.width * 0.8 }]}>
           <Image
-            source={require('se-project/assets/pie-graph.png')}
+            source={require("../assets/pie-graph.png")}
             style={styles.graphs}
           />
         </View>
       </ScrollView>
     </View>
-    
   );
 };
 
   
 
 const MonthSlider = () => {
-  return(
+  return (
     <View style={styles.monthlySlider}>
       <TouchableOpacity>
         <Image
-          source={require('se-project/assets/left-arrowW.png')}
+          source={require("../assets/left-arrowW.png")}
           style={styles.icon}
         />
       </TouchableOpacity>
       <Text style={styles.titleText}>April</Text>
       <TouchableOpacity>
         <Image
-          source={require('se-project/assets/right-arrowW.png')}
+          source={require("../assets/right-arrowW.png")}
           style={styles.icon}
         />
       </TouchableOpacity>
-      
-
     </View>
   );
 };
@@ -129,41 +124,33 @@ const Menu = () => {
     navigation.navigate('PlannedPayments');
   };
 
-  return(
+  return (
     <View style={styles.menu}>
       <TouchableOpacity onPress={handleHomeScreenPress}>
-        <Image 
-          source={require('se-project/assets/home.png')}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/home.png")} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleBudgetPress}>
-        <Image 
-        source={require('se-project/assets/budget.png')}
-        style={styles.icon}
-        />
+        <Image source={require("../assets/budget.png")} style={styles.icon} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.inputIcon}
-      onPress={handlePlusButtonPress}>
-        <Image 
-          source={require('se-project/assets/plus1.png')}
-          style={styles.icon}
-        />
+      <TouchableOpacity
+        style={styles.inputIcon}
+        onPress={handlePlusButtonPress}
+      >
+        <Image source={require("../assets/plus1.png")} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handlePlannedPaymmentPress}>
-        <Image 
-        source={require('se-project/assets/plannedpayment.png')}
-        style={styles.icon}
+        <Image
+          source={require("../assets/plannedpayment.png")}
+          style={styles.icon}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleConverterPress}>
-        <Image 
-        source={require('se-project/assets/calculator.png')}
-        style={styles.icon}
+        <Image
+          source={require("../assets/calculator.png")}
+          style={styles.icon}
         />
       </TouchableOpacity>
     </View>
-
   );
 };
 
