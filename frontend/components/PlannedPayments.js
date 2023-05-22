@@ -9,7 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
@@ -23,16 +23,17 @@ export default function App() {
   const navigation = useNavigation();
 
   const handleBackPress = () => {
-    navigation.navigate('HomeScreen');
-  }
+    navigation.navigate("HomeScreen");
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.top}>
         <TouchableOpacity onPress={handleBackPress}>
-          <Image 
-            source={require("../assets/left-arrow.png")} style={styles.image} />
-
+          <Image
+            source={require("../assets/left-arrow.png")}
+            style={styles.image}
+          />
         </TouchableOpacity>
         <Text style={styles.text}>Planned Payments</Text>
         <Image source={require("../assets/sort.png")} style={styles.image} />
@@ -58,10 +59,12 @@ export default function App() {
         </ScrollView>
       </View>
       <View style={styles.plus}>
-        <Image source={require("../assets/plus.png")} style={styles.plusImage} />
+        <Image
+          source={require("../assets/plus.png")}
+          style={styles.plusImage}
+        />
       </View>
       <View style={styles.bottom}>
-        
         <TouchableOpacity>
           <Text style={styles.button}>Income</Text>
         </TouchableOpacity>
@@ -80,8 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: "#F9F7F7",
-    paddingTop: Platform.OS === "android" ? 25 : 0,
-    paddingBottom: Platform.OS === "android" ? 25 : 0,
+    paddingTop: 25,
   },
   text: {
     color: "#000",
@@ -90,15 +92,15 @@ const styles = StyleSheet.create({
   top: {
     //top: 10,
     //flex: 1,
-    width: '90%',
-    height: '10%',
+    width: "90%",
+    height: "10%",
     paddingHorizontal: 15,
     marginTop: 55,
     flexDirection: "row",
     backgroundColor: "#DBE2EF",
     justifyContent: "space-between",
     alignItems: "center",
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: 20,
     marginBottom: 20,
   },
@@ -114,24 +116,24 @@ const styles = StyleSheet.create({
   plus: {
     width: 60,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 50,
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    left: '50%',
+    left: "50%",
     marginLeft: -30, // half of the width of inputIcon component
     marginTop: -30,
   },
   bottom: {
     //flex: 1,
     height: 100,
-    width: '100%',
-    position: 'absolute',
+    width: "100%",
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    width: '100%',
+    width: "100%",
     backgroundColor: "#112D4E",
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -140,19 +142,19 @@ const styles = StyleSheet.create({
   },
   kont: {
     //flex: 10,
-    height: '60%',
-    width: '90%',
-    alignSelf: 'center',
+    height: "60%",
+    width: "90%",
+    alignSelf: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: '#DBE2EF',
+    backgroundColor: "#DBE2EF",
     borderRadius: 20,
   },
   button: {
     paddingHorizontal: 20,
     fontSize: 20,
-    color: '#FFF'
+    color: "#FFF",
   },
   payment: {
     flexDirection: "row",

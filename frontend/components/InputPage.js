@@ -29,23 +29,23 @@ const Header = () => {
   const handleBackPress = () => {
     navigation.navigate('HomeScreen');
   }
-  return(  
-    <View  style={styles.header}>
+  return (
+    <View style={styles.header}>
       <TouchableOpacity onPress={handleBackPress}>
-        <Image 
-        source={require('se-project/assets/cancelIcon.png')}
-        style={styles.inputPageIcon}
+        <Image
+          source={require("../assets/cancelIcon.png")}
+          style={styles.inputPageIcon}
         />
-      </TouchableOpacity>  
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={handleCheckPress}>
-        <Image 
-        source={require('se-project/assets/correctIcon.png')}
-        style={styles.inputPageIcon}
+        <Image
+          source={require("../assets/correctIcon.png")}
+          style={styles.inputPageIcon}
         />
-      </TouchableOpacity> 
-
-  </View>);
+      </TouchableOpacity>
+    </View>
+  );
 
 };
 

@@ -69,16 +69,10 @@ const Menu = () => {
   return (
     <View style={styles.menu}>
       <TouchableOpacity onPress={handleHomeScreenPress}>
-        <Image
-          source={require("se-project/assets/home.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/home.png")} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleBudgetPress}>
-        <Image
-          source={require("se-project/assets/budget.png")}
-          style={styles.icon}
-        />
+        <Image source={require("../assets/budget.png")} style={styles.icon} />
       </TouchableOpacity>
       {/*<TouchableOpacity style={styles.inputIcon}>
         <Image 
@@ -88,13 +82,13 @@ const Menu = () => {
   </TouchableOpacity>*/}
       <TouchableOpacity onPress={handlePlannedPaymmentPress}>
         <Image
-          source={require("se-project/assets/plannedpayment.png")}
+          source={require("../assets/plannedpayment.png")}
           style={styles.icon}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleConverterPress}>
         <Image
-          source={require("se-project/assets/calculator.png")}
+          source={require("../assets/calculator.png")}
           style={styles.icon}
         />
       </TouchableOpacity>
