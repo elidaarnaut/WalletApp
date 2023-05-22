@@ -1,97 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Keyboard, TouchableWithoutFeedback, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 
-export default function Converter() {
-  return (
-    <View style={styles.container}>
-      <Header></Header>
-      <Menu></Menu>
-      <MenuOutput></MenuOutput>
+const { width, height } = Dimensions.get("window");
 
+export default function Converter(){
 
-    </View>
-  );
-}
-
-const Header = () => {
   const navigation = useNavigation();
-  const handleBackArrowPress = () => {
+
+  const handleBackPress = () => {
     navigation.navigate('HomeScreen');
   }
 
-  return (
-    <View style={styles.header}>
-      <TouchableOpacity onPress={handleBackArrowPress}>
-        <Image
-          source={require("../assets/cancelIcon.png")}
-          style={styles.inputPageIcon}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Image
-          source={require("../assets/correctIcon.png")}
-          style={styles.inputPageIcon}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-
-};
-
-const Options = () => {
-  return(
-    <View style={styles.options}>
-      <TouchableOpacity style={styles.optionsTag}>
-        <Text style={styles.textOP}>CONVERTER</Text>
-      </TouchableOpacity>
-
-    </View>
-  );
-};
-
-
-const InputField = () => {
-  return(
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-      <View style={styles.inputField}>
-        <TextInput variant="standard" label="Label"
-        style={styles.input}
-        keyboardType='numeric'
-        />
-        <Text style={styles.inputText}>BAM</Text>
-        
-      </View>
-      
-      
-    </TouchableWithoutFeedback>
-
-  );
-};
-
-const Output = () => {
-  return(
-    <View style={styles.output}>
-
-        <TextInput variant="standard" label="Label"
-        style={styles.input}
-        keyboardType='numeric'
-        />
-        <Text style={styles.inputText}>EUR</Text>
-
-
-    </View>
-  );
-};
-
-const Menu = () => {
   const options = ['BAM', 'EUR', 'USD', 'GBP', 'RSD', 'CHF', 'AED', 'TRY', 'SEK', 'RUB'];
-  const [selectedOption, setSelectedOption] = useState('');
+  const options2 = ['BAM', 'EUR', 'USD', 'GBP', 'RSD', 'CHF', 'AED', 'TRY', 'SEK', 'RUB'];
+  const [selectedOption, setSelectedOption, ] = useState('');
+  const [selectedOption2, setSelectedOption2, ] = useState('');
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
 
 
   const handleSelect = (option) => {
@@ -99,29 +26,51 @@ const Menu = () => {
     setVisible(false);
   };
 
-  return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-    <View style={styles.select}>
-      <TouchableOpacity onPress={() => setVisible(true)}>
-        <Text style={styles.textOP}>Select Currency</Text>
+  const handleSelect2 = (option2) => {
+    setSelectedOption2(option2);
+    setVisible2(false);
+  };
+
+  return(
+
+    <View style={styles.container}>
+
+      <View style = {styles.header}>
+
+      <TouchableOpacity onPress={handleBackPress}>
+
+          <Image 
+            source={require("../assets/left-arrow.png")} style={styles.image} />
+
       </TouchableOpacity>
-      
-      <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-      <View style={styles.inputField}>
+
+      <Text style={styles.bigText}>Converter</Text>
+
+      <View></View>
+
+
+
+      </View>
+
+      <View style={styles.containerMain}>
+        <View style={styles.select}>
+
+          <TouchableOpacity onPress={() => setVisible(true)}>
+          <Text style={styles.textOP}>Select Currency</Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <View style={styles.inputField}>
         <TextInput variant="standard" label="Label"
         style={styles.input}
         keyboardType='numeric'
         />
         <Text style={styles.inputText}>{selectedOption}</Text>
         
-      </View>
-      
-    </TouchableWithoutFeedback>
-      <Modal visible={visible} animationType="slide" transparent>
+        </View>
+
+        <Modal visible={visible} animationType="slide" transparent>
         <View style={styles.menuOptions}>
           {options.map((option) => (
             <TouchableOpacity
@@ -140,130 +89,122 @@ const Menu = () => {
         </View>
 
       </Modal>
-      {/*<Text>Selected Option: {selectedOption}</Text>*/}
-      
-    </View>
-
-    
-    </TouchableWithoutFeedback>
-    
-  );
-};
-
-const MenuOutput = () => {
-  const options = ['BAM', 'EUR', 'USD', 'GBP', 'RSD', 'CHF', 'AED', 'TRY', 'SEK', 'RUB'];
-  const [selectedOption, setSelectedOption] = useState('');
-  const [visible, setVisible] = useState(false);
 
 
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-    setVisible(false);
-  };
-
-  return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-    <View style={styles.selectOutput}>
-      <TouchableOpacity onPress={() => setVisible(true)}>
-        <Text style={styles.textOP}>Select Currency</Text>
-      </TouchableOpacity>
-      
-      <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-      <View style={styles.inputField}>
-        <TextInput variant="standard" label="Label"
-        style={styles.input}
-        keyboardType='numeric'
-        />
-        <Text style={styles.inputText}>{selectedOption}</Text>
-        
       </View>
-      
-    </TouchableWithoutFeedback>
-      <Modal visible={visible} animationType="slide" transparent>
-        <View style={styles.menuOptions}>
-          {options.map((option) => (
-            <TouchableOpacity
-              key={option}
-              onPress={() => handleSelect(option)}
-              style={{ padding: 10 }}
-            >
-              <Text>{option}</Text>
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity onPress={() => setVisible(false)} style={{ padding: 10 }}>
-            <Text style={{ justifyContent: 'center', alignItems: 'center' }}>Cancel</Text>
-          </TouchableOpacity>
 
-          
-        </View>
+      <View style={styles.containerMain}>
 
-      </Modal>
-      {/*<Text>Selected Option: {selectedOption}</Text>*/}
-      
+      <View style={styles.select}>
+
+<TouchableOpacity onPress={() => setVisible2(true)}>
+<Text style={styles.textOP}>Select Currency</Text>
+</TouchableOpacity>
+
+</View>
+
+<View style={styles.inputField}>
+<TextInput variant="standard" label="Label"
+style={styles.input}
+keyboardType='numeric'
+/>
+<Text style={styles.inputText}>{selectedOption2}</Text>
+
+</View>
+
+<Modal visible={visible2} animationType="slide" transparent>
+<View style={styles.menuOptions}>
+{options.map((option2) => (
+  <TouchableOpacity
+    key={option2}
+    onPress={() => handleSelect2(option2)}
+    style={{ padding: 10 }}
+  >
+    <Text>{option2}</Text>
+  </TouchableOpacity>
+))}
+<TouchableOpacity onPress={() => setVisible2(false)} style={{ padding: 10 }}>
+  <Text style={{ justifyContent: 'center', alignItems: 'center' }}>Cancel</Text>
+</TouchableOpacity>
+
+
+</View>
+
+</Modal>
+
+      </View>
+
+      <View style={styles.containerBottom}>
+
+      <View style={styles.select}>
+
+      <TouchableOpacity >
+      <Text style={styles.textOP}>Convert</Text>
+      </TouchableOpacity>
+
+</View>
+
+
+      </View>
+
     </View>
 
-    
-    </TouchableWithoutFeedback>
-    
   );
-};
+
+
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F9F7F7',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
+    container: {
+    flexGrow: 1,
+    backgroundColor: "#F9F7F7",
+    paddingTop: Platform.OS === "android" ? 25 : 0,
+    paddingBottom: Platform.OS === "android" ? 25 : 0,
+    //justifyContent: 'space-between',
+    alignContent: 'center',
+    alignItems: 'flex-start'
+    
   },
 
   header: {
-    backgroundColor: '#112D4E',
-    height: '11%',
+    backgroundColor: "#112D4E",
     width: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    height: '12%',
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    paddingBottom: 5,
-    paddingHorizontal: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 10
   },
 
-  inputPageIcon: {
+  image: {
     width: 30,
     height: 30,
-    tintColor: '#FFFFFF',
-    alignSelf: 'center',
+    tintColor: '#FFFFFF'
   },
 
-  options: {
-    //backgroundColor: '#CE5959',
+  containerMain: {
+    backgroundColor: "#F9F7F7",
     width: '100%',
-    position: 'absolute',
-    top: 100,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    height: '20%',
     justifyContent: 'center',
-    paddingBottom: 5,
-    paddingHorizontal: 5,
-    marginVertical: 10,
+    alignItems: 'center',
+    paddingTop: 50,
+
   },
 
-  optionsTag: {
-    backgroundColor: '#3F72AF',
-    width: '45%',
-    height: 50,
-    alignItems: 'center',
+  containerBottom: {
+    backgroundColor: "#F9F7F7",
+    width: '100%',
+    height: '10%',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  select: {
+    backgroundColor: '#3F72AF',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 20,
     
 
@@ -272,19 +213,13 @@ const styles = StyleSheet.create({
   inputField: {
     height: '100%',
     width: '100%',
-    position: 'absolute',
-    top: 70,
-    left: 0,
-    right: 0,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 0,
-    paddingRight: 0,
-
+    //justifyContent: 'center',
+    fontSize: 30
   },
 
   input: {
-    height: 60,
+    height: 70,
     width: 200,
     margin: 0,
     borderWidth: 0,
@@ -293,70 +228,29 @@ const styles = StyleSheet.create({
     fontSize: 60,
   },
 
+
+
   inputText: {
-    fontSize: 20
+    fontSize: 15,
   },
 
-  output: {
-    backgroundColor: '#F9F7F7',
-    height: '25%',
-    width: '100%',
-    position: 'absolute',
-    top: 340,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    alignItems: 'top',
-    justifyContent: 'space-between',
-    paddingTop: 60,
-    paddingHorizontal: 20,
-
-  },
   textOP: {
-    color: '#FFF',
-    fontWeight: '600',
+    color: 'white'
   },
 
-  select: {
-    
-    justifyContent: 'center', 
-    alignItems: 'center',
-    backgroundColor: '#3F72AF',
-    position: 'absolute',
-    top: 120,
-    width: '45%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-
+  bigText: {
+    fontSize: 20,
+    color: 'white',
   },
+
 
   menuOptions: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F9F7F7',
+  }
 
-    
+}
 
-  },
-
-  selectOutput: {
-    
-    justifyContent: 'center', 
-    alignItems: 'center',
-    backgroundColor: '#3F72AF',
-    position: 'absolute',
-    top: 350,
-    width: '45%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-
-  },
-
-
-});
+);
