@@ -4,7 +4,6 @@ import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-// import { DateTimePickerModal } from 'react-native-modal-datetime-picker';
 
 export default function PlannedPaymentInput() {
   const [selectedType, setSelectedType] = useState('Option 1');
@@ -21,26 +20,18 @@ export default function PlannedPaymentInput() {
     setAmount(text);
   };
 
-  // const dismissKeyboard = () => {
-  //   Keyboard.dismiss();
-  // };
-
-  // const handleDateConfirm = (date) => {
-  //   setSelectedDate(date);
-  //   hideDatePicker();
-  // };
-
-  // const showDatePicker = () => {
-  //   setDatePickerVisible(true);
-  // };
-
-  // const hideDatePicker = () => {
-  //   setDatePickerVisible(false);
-  // };
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Name</Text>
+      <View style={styles.header}>
+        <Image 
+        source={require("./assets/left-arrow.png")}
+        style={styles.icon}></Image>
+        <Text>Name</Text>
+        <Image 
+        source={require("./assets/correctIcon.png")}
+        style={styles.icon}></Image>
+      </View>
+
       {/* DIVIDER */}
       <View style={styles.divider}></View>
 
@@ -69,9 +60,6 @@ export default function PlannedPaymentInput() {
           keyboardType="numeric"
           placeholder='BAM'
         />
-        {/* <TouchableOpacity style={styles.dismissButton} onPress={dismissKeyboard}>
-          <Text style={styles.dismissButtonText}>Dismiss</Text>
-        </TouchableOpacity> */}
       </View>
 
       {/* DIVIDER */}
@@ -92,6 +80,7 @@ export default function PlannedPaymentInput() {
         </Picker>
       </View>
 
+      {/* Date Picker */}
       {/* <View style={styles.box}>
         <Text style={styles.label}>Date</Text>
         <TouchableOpacity style={styles.datePickerButton} onPress={showDatePicker}>
@@ -100,13 +89,20 @@ export default function PlannedPaymentInput() {
           </Text>
         </TouchableOpacity>
 
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleDateConfirm}
-          onCancel={hideDatePicker}
-        />
+        {isDatePickerVisible && (
+          <DateTimePicker
+            value={selectedDate || new Date()}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
       </View> */}
+
+      {/* DIVIDER */}
+      <View style={styles.divider}></View>
+      <View style={styles.box}></View>
+      
     </SafeAreaView>
   );
 }
@@ -118,6 +114,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F7F7',
     alignItems: 'center',
     paddingTop: 35,
+    justifyContent:'space-evenly'
+  },
+  header: {
+    flexDirection: 'row',
+    width: '80%',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   divider: {
     backgroundColor: '#112D4E',
@@ -129,6 +132,8 @@ const styles = StyleSheet.create({
   dropdown: {
     width: 200,
     height: 50,
+    margin: 0,
+    padding: 0,
   },
   label: {
     fontSize: 16,
@@ -145,10 +150,16 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '85%',
-    height: '20%',
+    height: '17%',
     backgroundColor: '#DBE2EF',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+    tintColor: '#112D4E'
+    
   },
 });
