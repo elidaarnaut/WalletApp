@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
+
 //Latest code 26.06 
 //Still need to fix the date section and fix up the design
 
@@ -23,15 +24,24 @@ export default function PlannedPaymentInput() {
     setAmount(text);
   };
 
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.navigate("PlannedPayments");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Image 
-        source={require("./assets/left-arrow.png")}
-        style={styles.icon}></Image>
+        <TouchableOpacity onPress={handleBackPress}>
+          <Image 
+            
+            source={require("../assets/left-arrow.png")}
+            style={styles.icon}></Image>
+        </TouchableOpacity>
         <Text>Name</Text>
         <Image 
-        source={require("./assets/correctIcon.png")}
+        source={require("../assets/correctIcon.png")}
         style={styles.icon}></Image>
       </View>
 

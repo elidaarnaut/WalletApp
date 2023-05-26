@@ -5,6 +5,7 @@ import HomeScreen from "./components/HomeScreen";
 import InputTypePage from "./components/InputTypePage";
 import Budget from "./components/Budget";
 import PlannedPayments from "./components/PlannedPayments";
+import PlannedPaymentInput from "./components/PlannedPaymentInput";
 import Converter from "./components/Converter";
 import InputPage from "./components/InputPage";
 import Categories from "./components/Categories";
@@ -48,6 +49,11 @@ const App = () => {
         <Stack.Screen
           name="Categories"
           component={Categories}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PlannedPaymentInput"
+          component={PlannedPaymentInput}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
