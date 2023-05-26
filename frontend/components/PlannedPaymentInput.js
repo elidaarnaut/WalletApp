@@ -5,6 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
+//Latest code 26.06 
+//Still need to fix the date section and fix up the design
+
 export default function PlannedPaymentInput() {
   const [selectedType, setSelectedType] = useState('Option 1');
   // const [selectedDate, setSelectedDate] = useState(null);
