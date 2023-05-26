@@ -1,11 +1,10 @@
-//Creted needed branch
 import React from 'react';
 import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 export default function App()  {
 
   const handleSignUp = () => {
-    // extra code 
+    // Handle sign-up logic
   };
 
 
