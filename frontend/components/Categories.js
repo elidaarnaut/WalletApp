@@ -14,8 +14,9 @@ import {
   FlatList,
   VirtualizedList,
 } from "react-native";
+
 //import one from '../assets/grocery.png';
-import  "../assets/first-aid-kit.png";
+//import  "../assets/first-aid-kit.png";
 
 export default function Categories() {
   const navigation = useNavigation();
@@ -23,31 +24,26 @@ export default function Categories() {
     navigation.navigate("InputPage");
   };
 
-
-
   const [data, setData] = useState([]);
   const [category, setCategories] = useState([]);
   const [subcategory, setSubcategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = "http://127.0.0.1:8000/category";
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/category");
+        setData(response.data);
+        setCategories(response.data.category);
+        setSubcategories(response.data.subcategory);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-   useEffect(() => {
-     const fetchData = async () => {
-       try {
-         const response = axios.get("http://127.0.0.1:8000/category");
-          setData(response.data);
-          setCategories(response.data.category);
-          setSubcategories(response.data.subcategory);
-          setLoading(false);
-       } catch (error) {
-         console.error(error);
-       }
-     };
-
-     fetchData();
-   }, []);
-
+    fetchCategories();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
