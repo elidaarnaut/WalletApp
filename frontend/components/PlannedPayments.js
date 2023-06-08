@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,15 +9,32 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
   const [payments, setPayments] = useState([
-    { id: 1, name: "Netflix", amount: 15, date: "March 23", type: "expense" },
+   /* { id: 1, name: "Netflix", amount: 15, date: "March 23", type: "expense" },
     { id: 2, name: "Spotify", amount: 10, date: "April 20", type: "expense" },
     { id: 3, name: "Gym", amount: 30, date: "September 01", type: "expense" },
     { id: 4, name: "Salary", amount: 1000, date: "April 01", type: "income" },
-  ]);
+  */]);
+
+  useEffect(() => {
+    const fetchPayment = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/plannedpayment");
+         setPayments(response.data);
+         console.log(response.data);
+         
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPayment();
+  }, []);
 
   const navigation = useNavigation();
 
@@ -61,7 +77,7 @@ export default function App() {
               <Text style={styles.paymentName}>{payment.name}</Text>
               <Text style={styles.paymentAmount}>${payment.amount}</Text>
               <Text style={styles.paymentDate}>{payment.date}</Text>
-              {payment.type === "income" ? (
+              {payment.typeofpayment === 1 ? (
                 <View style={styles.incomeBanner}>
                   <Text style={styles.bannerText}>Income</Text>
                 </View>
