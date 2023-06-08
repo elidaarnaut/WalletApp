@@ -26,19 +26,35 @@ export default function App() {
     navigation.navigate("HomeScreen");
   };
 
+  const handlePlusPress = () => {
+    navigation.navigate("PlannedPaymentInput");
+  };
+
+
   return (
     <View style={styles.container}>
+
+      {/* HEADER */}
       <View style={styles.top}>
+
+        {/* BACK BUTTON */}
         <TouchableOpacity onPress={handleBackPress}>
           <Image
             source={require("../assets/left-arrow.png")}
             style={styles.image}
           />
         </TouchableOpacity>
+
+        {/* TITLE */}
         <Text style={styles.text}>Planned Payments</Text>
+
+        {/* SORT */}
         <Image source={require("../assets/sort.png")} style={styles.image} />
       </View>
+
+      {/* BODY SECTION */}
       <View style={styles.kont}>
+
         <ScrollView>
           {payments.map((payment) => (
             <View key={payment.id} style={styles.payment}>
@@ -58,12 +74,7 @@ export default function App() {
           ))}
         </ScrollView>
       </View>
-      <View style={styles.plus}>
-        <Image
-          source={require("../assets/plus.png")}
-          style={styles.plusImage}
-        />
-      </View>
+      
       <View style={styles.bottom}>
         <TouchableOpacity>
           <Text style={styles.button}>Income</Text>
@@ -71,6 +82,13 @@ export default function App() {
         <TouchableOpacity>
           <Text style={styles.button}>All</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={handlePlusPress}
+        style={styles.plus}>
+          <Image
+            source={require("../assets/plus.png")}
+            style={styles.plusImage}
+          />
+      </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.button}>Expense</Text>
         </TouchableOpacity>
@@ -112,6 +130,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     alignSelf: "center",
+    tintColor: "#FFF",
   },
   plus: {
     width: 60,
@@ -124,6 +143,7 @@ const styles = StyleSheet.create({
     left: "50%",
     marginLeft: -30, // half of the width of inputIcon component
     marginTop: -30,
+    backgroundColor: "#3F72AF",
   },
   bottom: {
     //flex: 1,
