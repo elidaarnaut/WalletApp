@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 
 export default function Budget() {
@@ -12,6 +14,28 @@ export default function Budget() {
   const handleBackArrowPress = () => {
     navigation.navigate('HomeScreen');
   }
+
+  const [budget, setBudget] = useState([]);
+  const url = "http://127.0.0.1:8000/budget";
+
+  useEffect(() => {
+    const fetchBudget = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/budget");
+         setData(response.data);
+         setBudget(response.data.budget);
+         
+         setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBudget();
+  }, []);
+  
+
+
   return (
     <View
       style={[styles.container]}>
@@ -33,16 +57,7 @@ export default function Budget() {
       </View>
       <View style={[styles.graphContainer]}>
       </View>
-      <View style={[styles.statsContainer]}>
-        <ScrollView>
-            <View style={styles.stat}><Text>Stat1</Text></View>
-            <View style={styles.stat}><Text>Stat2</Text></View>
-            <View style={styles.stat}><Text>Stat3</Text></View>
-            <View style={styles.stat}><Text>Stat4</Text></View>
-            <View style={styles.stat}><Text>Stat5</Text></View>
-            <View style={styles.stat}><Text>Stat6</Text></View>
-        </ScrollView>
-      </View>
+      
 
     </View>
   );
@@ -79,7 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 40,
     margin: 10,
     padding: 20,
     backgroundColor: '#DBE2EF',
@@ -112,13 +127,5 @@ const styles = StyleSheet.create({
     height: 30,
     tintColor: '#FFFFFF'
   },
-  stat: {
-    width: '100%',
-    height: 70,
-    backgroundColor: '#DBE2EF',
-    marginVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-  }
+ 
 });

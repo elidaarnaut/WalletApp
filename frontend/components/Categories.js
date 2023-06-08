@@ -35,7 +35,7 @@ export default function Categories() {
    useEffect(() => {
      const fetchData = async () => {
        try {
-         const response = await axios.get("http://127.0.0.1:8000/category");
+         const response = axios.get("http://127.0.0.1:8000/category");
           setData(response.data);
           setCategories(response.data.category);
           setSubcategories(response.data.subcategory);
@@ -85,7 +85,7 @@ export default function Categories() {
                           <View style={styles.iconContainer}>
                             <TouchableOpacity>
                               <Image
-                                source={require(`${subcategory.path}`)}
+                                source={{ uri: subcategory.path }}
                                 style={styles.icon}
                               />
                             </TouchableOpacity>
