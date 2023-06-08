@@ -16,7 +16,22 @@ export default function HomeScreen() {
       {/* StatusBar style="auto" means that the time, battery icon, wifi icon and similar will be visible on the phone
       The auto property means it will adjust based on the backgrond color, e.g white background -> dark icons and time */}
       <StatusBar style="auto" />
-      <MonthSlider></MonthSlider>
+      <View style={styles.header}>
+        <MonthSlider></MonthSlider>
+        <TouchableOpacity style={styles.userButton}>
+          <Image 
+            source={require("../assets/user.png")}
+            style={styles.userIcon}>
+          </Image>
+        </TouchableOpacity>
+      </View>
+      {/*<MonthSlider></MonthSlider>
+      <TouchableOpacity>
+        <Image 
+          source={require("../assets/user.png")}
+          style={styles.userIcon}>
+        </Image>
+    </TouchableOpacity>*/}
       <GraphSlider/>
       <SpendingsView></SpendingsView>
       <Menu></Menu>
@@ -164,6 +179,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
   menu: {
     backgroundColor: '#112D4E',
     height: 100,
@@ -191,6 +211,18 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     tintColor: '#FFFFFF'
+    
+  },
+  userIcon: {
+    width: 40,
+    height: 40,
+    tintColor: '#112D4E',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  userButton: {
+    width: 45,
+    height: 45,
     
   },
   inputIcon: {
