@@ -61,41 +61,35 @@ export default function HomeScreen() {
     fetchCategories();
   }, []);
 
+  const navigation = useNavigation();
+  const handleLoginPress = () => {
+    navigation.navigate("LogIn");
+  };
   return (
     <View style={styles.container}>
-      {/* StatusBar style="auto" means that the time, battery icon, wifi icon and similar will be visible on the phone
-      The auto property means it will adjust based on the backgrond color, e.g white background -> dark icons and time */}
       <StatusBar style="auto" />
       <View style={styles.header}>
         <MonthSlider></MonthSlider>
-        <TouchableOpacity style={styles.userButton}>
+        <TouchableOpacity style={styles.userButton} onPress={handleLoginPress}>
           <Image
             source={require("../assets/user.png")}
             style={styles.userIcon}
           ></Image>
         </TouchableOpacity>
       </View>
-      <GraphSlider />
+      <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
         {record.map((record) => {
           let filter = [];
-
-          if (record.subcategoryid >= 1) {
-            if (
-              subcategory.filter((sub) => sub.id === record.subcategoryid)
-                .length != 0
-            ) {
-              filter = subcategory.filter(
-                (sub) => sub.id === record.subcategoryid
-              );
-            }
-            console.log(filter);
-          } else if (!record.subcategoryid) {
+          if (record.categoryid > 1) {
             filter = category.filter((cat) => cat.id === record.categoryid);
           } else {
             filter = [
               {
-                name: "Healthcare",
+                id: 1,
+                name: "unknown",
+                created_at: "2023-05-21T17:17:56.000000Z",
+                updated_at: "2023-05-21T17:17:56.000000Z",
               },
             ];
           }

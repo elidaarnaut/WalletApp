@@ -28,3 +28,5 @@ Route::resource('/plannedpayment',\App\Http\Controllers\PlannedPaymentController
 Route::resource('/record',\App\Http\Controllers\RecordController::class);
 
 Route::post('/currencyconverter',[\App\Http\Controllers\CurrencyConverterController::class,'convert']);
+
+Route::post('/signup', [\App\Http\Controllers\registerCustomController::class, 'store']);
