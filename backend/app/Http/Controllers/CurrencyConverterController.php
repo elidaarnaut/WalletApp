@@ -24,7 +24,7 @@ class CurrencyConverterController extends Controller
     $response = json_decode($response_json);
     $rate = $response->info->rate;
     $converted=$request->input('amount')*$rate;
-    return $converted;
+    return response()->json(['converted' => $converted]);
 
  }
 

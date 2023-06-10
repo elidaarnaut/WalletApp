@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Record;
 use App\Models\Budget;
+use Illuminate\Support\Facades\DB;
 
 
 class RecordController extends Controller
 {
     public function index()
     {
-        $record = Record::get();
-        return $record;
+        $record = DB::table('records')
+                    ->join('categories', 'records.categoryid', '=', 'categories.id')
+                    ->join('subcategories', 'records.subcategoryid', '=', 'subcategories.id')
+                    ->select(['records.id', 'records.typeofpayment','records.amount',  'categories.name as category_name', 'subcategories.name as subcategory_name'])->get();
+    
+    return $record;
     }
     
     public function store(Request $request)
