@@ -83,7 +83,6 @@ export default function HomeScreen() {
     </View>
   );
 }
-
 class TestChart extends Component {
   render() {
     const widthAndHeight = 200;
