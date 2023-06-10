@@ -5,23 +5,28 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-
-//Latest code 26.06 
-//Still need to fix the date section and fix up the design
-
 export default function PlannedPaymentInput() {
   const [selectedType, setSelectedType] = useState('Option 1');
-  // const [selectedDate, setSelectedDate] = useState(null);
-  // const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const [selectedFrequency, setSelectedFrequency] = useState('1Year');
+  const [amount, setAmount] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleTypeChange = (itemValue) => {
-    setSelectedType(itemValue);
+    if (itemValue !== selectedType) {
+      setSelectedType(itemValue);
+    }
   };
-
-  const [amount, setAmount] = useState('');
 
   const handleAmountChange = (text) => {
     setAmount(text);
+  };
+
+  const handleFrequencyChange = (itemValue) => {
+    setSelectedFrequency(itemValue);
+  };
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
 
   const navigation = useNavigation();
@@ -35,7 +40,6 @@ export default function PlannedPaymentInput() {
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress}>
           <Image 
-            
             source={require("../assets/left-arrow.png")}
             style={styles.icon}></Image>
         </TouchableOpacity>
@@ -82,8 +86,8 @@ export default function PlannedPaymentInput() {
       <View style={styles.box}>
         <Text style={styles.label}>Frequency</Text>
         <Picker
-          selectedValue={selectedType}
-          onValueChange={handleTypeChange}
+          selectedValue={selectedFrequency}
+          onValueChange={handleFrequencyChange}
           style={styles.dropdown}
         >
           <Picker.Item label="1 Year" value="1Year" />
@@ -93,29 +97,19 @@ export default function PlannedPaymentInput() {
         </Picker>
       </View>
 
-      {/* Date Picker */}
-      {/* <View style={styles.box}>
-        <Text style={styles.label}>Date</Text>
-        <TouchableOpacity style={styles.datePickerButton} onPress={showDatePicker}>
-          <Text style={styles.datePickerButtonText}>
-            {selectedDate ? selectedDate.toLocaleDateString() : 'Select date'}
-          </Text>
-        </TouchableOpacity>
-
-        {isDatePickerVisible && (
-          <DateTimePicker
-            value={selectedDate || new Date()}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
-      </View> */}
-
       {/* DIVIDER */}
       <View style={styles.divider}></View>
-      <View style={styles.box}></View>
-      
+
+      {/* Date Picker */}
+      <View style={styles.box}>
+        <Text style={styles.label}>Date</Text>
+        <input
+          type="date"
+          style={styles.datePickerInput}
+          value={selectedDate}
+          onChange={handleDateChange}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -173,6 +167,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     tintColor: '#112D4E'
-    
+  },
+  datePickerInput: {
+    width: 200,
+    height: 40,
+    padding: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
   },
 });

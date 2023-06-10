@@ -12,6 +12,25 @@ export default function Budget() {
   const handleBackArrowPress = () => {
     navigation.navigate('HomeScreen');
   }
+
+  const [budget, setBudget] = useState([]);
+  const url = "http://127.0.0.1:8000/budget";
+
+  useEffect(() => {
+    const fetchBudget = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/budget");
+         setData(response.data);
+         setBudget(response.data.budget);
+         
+         setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBudget();
+  }, []);
   return (
     <View
       style={[styles.container]}>
@@ -120,5 +139,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-  }
+  },
+ 
 });
