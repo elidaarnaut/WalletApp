@@ -9,6 +9,8 @@ import PlannedPaymentInput from "./components/PlannedPaymentInput";
 import Converter from "./components/Converter";
 import InputPage from "./components/InputPage";
 import Categories from "./components/Categories";
+import LogIn from "./components/LogIn";
+import SignUp from "./components/SignUp";
 
 const Stack = createStackNavigator();
 
@@ -54,6 +56,16 @@ const App = () => {
         <Stack.Screen
           name="PlannedPaymentInput"
           component={PlannedPaymentInput}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LogIn"
+          component={LogIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

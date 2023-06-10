@@ -14,12 +14,7 @@ import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
-  const [payments, setPayments] = useState([
-   /* { id: 1, name: "Netflix", amount: 15, date: "March 23", type: "expense" },
-    { id: 2, name: "Spotify", amount: 10, date: "April 20", type: "expense" },
-    { id: 3, name: "Gym", amount: 30, date: "September 01", type: "expense" },
-    { id: 4, name: "Salary", amount: 1000, date: "April 01", type: "income" },
-  */]);
+  const [payments, setPayments] = useState([]);
 
   useEffect(() => {
     const fetchPayment = async () => {
