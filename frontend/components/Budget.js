@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 export default function Budget() {
   const navigation = useNavigation();
   const handlePlannedPaymmentPress = () => {
@@ -64,6 +65,7 @@ export default function Budget() {
         </View>
           ))}
       </View>
+
       <View style={[styles.inputContainer]}>
         <Text style={[styles.text]}>Do you want to add an expense or income?</Text>
         <View style={[styles.addButton]}>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 40,
     margin: 10,
     padding: 20,
     backgroundColor: '#DBE2EF',

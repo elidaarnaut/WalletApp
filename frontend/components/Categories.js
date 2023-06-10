@@ -1,8 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,12 +10,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  FlatList,
-  VirtualizedList,
 } from "react-native";
-
-//import one from '../assets/grocery.png';
-//import  "../assets/first-aid-kit.png";
 
 export default function Categories() {
   const navigation = useNavigation();
@@ -56,43 +50,33 @@ export default function Categories() {
               style={styles.iconleft}
             />
           </TouchableOpacity>
-          <Text style={styles.text}> CATEGORIES </Text>
+          <Text style={styles.text}>CATEGORIES</Text>
         </View>
 
         <View>
           {loading ? (
             <Text>Loading ...</Text>
           ) : (
-            <View style={styles.title}>
-              {category.map((category) => (
-                <View key={category.id}>
-                  <Text style={styles.text}>{category.name} </Text>
+            <View style={styles.categoryContainer}>
+              {category.map((cat) => (
+                <View key={cat.id}>
+                  <Text style={styles.categoryTitle}>{cat.name}
+                  </Text>
+                  {/* DIVIDER */}
+            <View style={styles.divider}></View>
 
-                  {subcategory
-                    .filter(
-                      (subcategory) => subcategory.categoryid === category.id
-                    )
-                    .map((subcategory) => (
-                      <View key={subcategory.id}>
-                        <View
-                          style={styles.categorysectionfirst}
-                          key={subcategory.id}
+                  <View style={styles.subcategoryContainer}>
+                    {subcategory
+                      .filter((subcat) => subcat.categoryid === cat.id)
+                      .map((subcat) => (
+                        <TouchableOpacity
+                          key={subcat.id}
+                          style={styles.iconContainer}
                         >
-                          <View style={styles.iconContainer}>
-                            <TouchableOpacity>
-                              <Image
-                                source={{ uri: subcategory.path }}
-                                style={styles.icon}
-                              />
-                            </TouchableOpacity>
-                          </View>
-                          <TouchableOpacity>
-                            <Text>{subcategory.name}</Text>
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.divider1}></View>
-                      </View>
-                    ))}
+                          <Text style={styles.iconText}>{subcat.name}</Text>
+                        </TouchableOpacity>
+                      ))}
+                  </View>
                 </View>
               ))}
             </View>
@@ -104,155 +88,50 @@ export default function Categories() {
 }
 
 const styles = StyleSheet.create({
-  /*container: {
-    flex: 1,
-    backgroundColor: "#F9F7F7",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: "bold",
-    //fontFamily: 'Arial',
-    color: "#112D4E",
-  },
-  title: {
-    //backgroundColor: 'rgb(63, 114, 175)',
-    color: "black",
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 8,
-    marginTop: "3%",
-  },
-  divider: {
-    backgroundColor: "transparent",
-    width: "100%",
-    height: 25,
-    alignItems: "center",
-  },
-  divider1: {
-    backgroundColor: "transparent",
-    width: "100%",
-    height: 15,
-    alignItems: "center",
-  },
-  categorysection1: {
-    backgroundColor: "#DBE2EF",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: 10,
-    borderRadius: 15,
-    marginRight: "3.9%",
-    marginLeft: "3.9%",
-    paddingBottom: 20,
-  },
-
-  iconContainer: {
-    width: 50,
-    height: 50,
-    alignItems: "center",
-
-    justifyContent: "center",
-
-    marginHorizontal: 15,
-    marginVertical: 10,
-
-    shadowColor: "#000", //color of the shadow
-    shadowOffset: {
-      //offset of the shadow
-      width: 3,
-      height: 10,
-    },
-
-    shadowOpacity: 0.2, //opacity of the shadow
-    shadowRadius: 5, //blur radius of the shadow.
-
-    elevation: 15, //used to control the depth of the shadow on Android devices
-    backgroundColor: "#3F72AF",
-    borderRadius: 10000,
-  },
-  icon: {
-    borderRadius: 1,
-    height: 30,
-    width: 30,
-    marginTop: 25,
-  },
-  iconText: {
-    marginTop: 20,
-    fontSize: 8.5,
-    textAlign: "center",
-    //fontFamily:'Arial',
-  },
-  iconleft: {
-    width: 20,
-    height: 20,
-    marginRight: 15,
-    marginLeft: 10,
-    backgroundColor: "#DBE2EF",
-    padding: 13,
-    borderRadius: 5,
-  },
-  categorysectionfirst: {
-    backgroundColor: "#DBE2EF",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: 10,
-    borderRadius: 15,
-    marginRight: "3.9%",
-    marginLeft: "3.9%",
-  },*/
-
   container: {
-    flex: 1,
     backgroundColor: "#F9F7F7",
     paddingTop: 20,
+    display: "flex",
   },
   text: {
     fontSize: 25,
     fontWeight: "bold",
     color: "#112D4E",
+    flex: 1, // Take up remaining space
+    textAlign: "center", // Center text
   },
   title: {
-    backgroundColor: "#DBE2EF",
-    flexDirection: "row",
-    alignItems: "center",
+    backgroundColor: "#F9F7F7",
+    flexDirection: "row", // Update to row direction
+    alignItems: "center", // Align items vertically
     paddingVertical: 8,
     paddingHorizontal: 15,
   },
-  divider: {
-    backgroundColor: "transparent",
-    width: "100%",
-    height: 25,
-    alignItems: "center",
+  categoryContainer: {
+    marginVertical: 10,
   },
-  divider1: {
-    backgroundColor: "transparent",
-    width: "100%",
-    height: 15,
-    alignItems: "center",
+  categoryTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginRight:10,
+    textAlign: "center",
+    color:"#112D4E",
   },
-  categorysection1: {
-    backgroundColor: "#DBE2EF",
-    flexDirection: "column",
+  subcategoryContainer: {
+    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 15,
-    marginHorizontal: 10,
+    flexWrap: "wrap",
+    paddingHorizontal: 10,
     marginBottom: 20,
+    backgroundColor: "#F9F7F7", 
+    borderRadius: 10, 
   },
   iconContainer: {
-    width: 50,
-    height: 50,
+    width: "48%",
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 15,
     marginVertical: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -265,35 +144,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#3F72AF",
     borderRadius: 10000,
   },
-  icon: {
-    borderRadius: 1,
-    height: 30,
-    width: 30,
-    marginTop: 25,
-  },
   iconText: {
-    marginTop: 20,
-    fontSize: 8.5,
+    marginBottom: 5,
+    fontSize: 18,
     textAlign: "center",
+    color: "#fff",
+    fontWeight: 500,
   },
   iconleft: {
     width: 20,
     height: 20,
     marginRight: 15,
-    marginLeft: 10,
-    backgroundColor: "#DBE2EF",
-    padding: 13,
+    marginLeft: 5,
+    backgroundColor: "#F9F7F7",
+    padding: 10,
     borderRadius: 5,
   },
-  categorysectionfirst: {
-    backgroundColor: "#DBE2EF",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: 10,
-    borderRadius: 15,
-    marginHorizontal: 10,
-    marginBottom: 15,
+  divider: {
+    backgroundColor: "#112D4E",
+    height: 2,
+    borderRadius: 20,
+    width: "85%",
+    marginVertical: 10,
+    alignSelf:"center",
   },
 });
