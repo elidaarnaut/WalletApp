@@ -1,17 +1,41 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Budget() {
   const navigation = useNavigation();
   const handlePlannedPaymmentPress = () => {
     navigation.navigate('PlannedPayments');
   };
+
+  const handleInputPress = () => {
+    navigation.navigate('InputPage');
+  };
   
   const handleBackArrowPress = () => {
     navigation.navigate('HomeScreen');
   }
+
+  
+  const [budget, setBudget] = useState([]);
+
+  useEffect(() => {
+    const fetchBudget = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/budget");
+         setBudget(response.data);
+         console.log(response.data);
+         
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBudget();
+  }, []);
+  
   return (
     <View
       style={[styles.container]}>
@@ -22,7 +46,7 @@ export default function Budget() {
             style={styles.icon}/>
         </TouchableOpacity>
 
-        <Text style={[styles.text]}>Budget Statistics</Text>
+        <Text style={[styles.textBudget]}>Budget</Text>
 
         <TouchableOpacity 
           onPress={handlePlannedPaymmentPress}>
@@ -30,20 +54,24 @@ export default function Budget() {
             source={require('../assets/plannedpayment.png')} 
             style={styles.icon}/>
         </TouchableOpacity>
-      </View>
-      <View style={[styles.graphContainer]}>
-      </View>
-      <View style={[styles.statsContainer]}>
-        <ScrollView>
-            <View style={styles.stat}><Text>Stat1</Text></View>
-            <View style={styles.stat}><Text>Stat2</Text></View>
-            <View style={styles.stat}><Text>Stat3</Text></View>
-            <View style={styles.stat}><Text>Stat4</Text></View>
-            <View style={styles.stat}><Text>Stat5</Text></View>
-            <View style={styles.stat}><Text>Stat6</Text></View>
-        </ScrollView>
-      </View>
 
+      </View>
+      <View style={[styles.valueContainer]}>
+      <Text style={[styles.text]}>Your budget is:</Text>
+        {budget.map((budget) => (
+        <View style={styles.budgetValue} key={budget.id}>
+          <Text style={styles.budgetValue}>{budget.amount} KM</Text>
+        </View>
+          ))}
+      </View>
+      <View style={[styles.inputContainer]}>
+        <Text style={[styles.text]}>Do you want to add an expense or income?</Text>
+        <View style={[styles.addButton]}>
+          <TouchableOpacity onPress={handleInputPress}>
+            <Text style={[styles.addText]}>Add</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -71,7 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     //borderBottomLeftRadius: 15,
     //borderBottomRightRadius: 15,
-  },
+  },/*
   graphContainer: {
     height: '30%',
     width: '80%',
@@ -84,7 +112,47 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#DBE2EF',
   },
-  statsContainer: {
+  */
+ addButton:{
+  width: '90%',
+  backgroundColor: '#112D4E',
+  borderRadius: 20,
+ },
+
+ addText:{
+  color: 'white',
+  fontSize: 30,
+  textAlign: 'center',
+  padding: 10,
+ },
+
+  inputContainer:{
+    marginLeft: '20px',
+    width: '100%',
+    backgroundColor: '#DBE2EF',
+    marginVertical: 10,
+    justifyContent: 'center',
+    borderRadius: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    width: '90%',
+    padding: 20,
+    alignItems: 'center',
+  },
+  valueContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    width: '90%',
+    padding: 20,
+    alignSelf: 'center',
+  },
+
+  budgetValue:{
+    alignSelf: 'center',
+    fontWeight: '500',
+    fontSize: 35,
+  },
+  /*statsContainer: {
     height: '60%',
     width: '90%',
     padding: 20,
@@ -101,17 +169,23 @@ const styles = StyleSheet.create({
     shadowRadius: 6.65, //blur radius of the shadow.
 
     elevation: 9,
-  },
-  text: {
+  },*/
+  textBudget: {
     color: 'white',
     fontWeight: '500',
     fontSize: 20,
+  },
+  text: {
+    color: 'black',
+    fontSize: 30,
+    textAlign: 'center',
+    padding: 10,
   },
   icon: {
     width: 30,
     height: 30,
     tintColor: '#FFFFFF'
-  },
+  },/*
   stat: {
     width: '100%',
     height: 70,
@@ -120,5 +194,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-  }
+  }*/
 });

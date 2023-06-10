@@ -1,9 +1,14 @@
 //Creted needed branch
 import React from 'react';
-import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, Image, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { useNavigation, NavigationContainer } from "@react-navigation/native";
 
 export default function App()  {
 
+  const navigation = useNavigation();
+  const handleBackArrowPress = () => {
+    navigation.navigate("LogIn");
+  };
   const handleSignUp = () => {
     // extra code 
   };
@@ -13,6 +18,13 @@ export default function App()  {
 
   return (
     <View style={styles.container}>
+      <View style={styles.navbar}>   
+      <TouchableOpacity onPress={handleBackArrowPress}>
+          <Image 
+            source={require('../assets/left-arrow.png')} 
+            style={styles.icon}/>
+        </TouchableOpacity>
+      </View>
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -43,10 +55,9 @@ export default function App()  {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F9F7F7',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F9F7F7",
     padding: 16,
   },
   input: {
@@ -69,5 +80,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    tintColor: "#FFFFFF",
+  },
+  navbar: {
+    height: "8%",
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "center",
+    padding: 20,
+    backgroundColor: "#112D4E",
+    marginBottom:"150px",
+    borderRadius: 20,
+    //borderBottomLeftRadius: 15,
+    //borderBottomRightRadius: 15,
   },
 });
