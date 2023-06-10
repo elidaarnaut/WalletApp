@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -14,6 +14,7 @@ import {
   VirtualizedList,
 } from "react-native";
 import axios from "axios";
+import PieChart from "react-native-pie-chart";
 
 // Latest version of the Code, 15.05
 
@@ -33,8 +34,6 @@ export default function HomeScreen() {
 
   const [record, setRecord] = useState([]);
   const [data, setData] = useState([]);
-  const [category, setCategories] = useState([]);
-  const [subcategory, setSubcategories] = useState([]);
 
   useEffect(() => {
     const fetchRecord = async () => {
@@ -46,63 +45,34 @@ export default function HomeScreen() {
         console.error(error);
       }
     };
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/category");
-        setData(response.data);
-        ///console.log(response.data);
-        setCategories(response.data.category);
-        setSubcategories(response.data.subcategory);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+
     fetchRecord();
-    fetchCategories();
   }, []);
 
+  const navigation = useNavigation();
+  const handleLoginPress = () => {
+    navigation.navigate("LogIn");
+  };
   return (
     <View style={styles.container}>
-      {/* StatusBar style="auto" means that the time, battery icon, wifi icon and similar will be visible on the phone
-      The auto property means it will adjust based on the backgrond color, e.g white background -> dark icons and time */}
       <StatusBar style="auto" />
       <View style={styles.header}>
-        <MonthSlider></MonthSlider>
-        <TouchableOpacity style={styles.userButton}>
+        <TouchableOpacity style={styles.userButton} onPress={handleLoginPress}>
           <Image
             source={require("../assets/user.png")}
             style={styles.userIcon}
           ></Image>
         </TouchableOpacity>
       </View>
-      <GraphSlider />
+      <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
         {record.map((record) => {
-          let filter = [];
-
-          if (record.subcategoryid >= 1) {
-            if (
-              subcategory.filter((sub) => sub.id === record.subcategoryid)
-                .length != 0
-            ) {
-              filter = subcategory.filter(
-                (sub) => sub.id === record.subcategoryid
-              );
-            }
-            console.log(filter);
-          } else if (!record.subcategoryid) {
-            filter = category.filter((cat) => cat.id === record.categoryid);
-          } else {
-            filter = [
-              {
-                name: "Healthcare",
-              },
-            ];
-          }
           return (
             <View style={styles.spendingItem} key={record.id}>
               <View>
-                <Text style={styles.itemTitle}>Category: {filter.name} </Text>
+                <Text style={styles.itemTitle}>
+                  Category: {record.category_name}{" "}
+                </Text>
                 <Text style={styles.itemMoney}>Amount: {record.amount}</Text>
               </View>
             </View>
@@ -156,45 +126,37 @@ const SpendingsView = () => {
   );
 };
 */
+class TestChart extends Component {
+  render() {
+    const widthAndHeight = 200;
+    const series = [20, 30, 10];
+    const sliceColor = ["#3F72AF", "#112D4E", "#F9F7F7"];
 
+    return (
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.cont}>
+          <PieChart
+            widthAndHeight={widthAndHeight}
+            series={series}
+            sliceColor={sliceColor}
+          />
+        </View>
+      </ScrollView>
+    );
+  }
+}
 const GraphSlider = () => {
   const window = Dimensions.get("window");
   return (
     <View style={[styles.graphSlider, { minWidth: window.width }]}>
       <ScrollView horizontal={true}>
-        <View style={[styles.sliderCard, { width: window.width * 0.8 }]}>
-          <Image
-            source={require("../assets/pie-graph.png")}
-            style={styles.graphs}
-          />
+        <View style={[styles.sliderCard, { width: window.width * 0.82 }]}>
+          <TestChart></TestChart>
         </View>
-        <View style={[styles.sliderCard, { width: window.width * 0.8 }]}>
-          <Image
-            source={require("../assets/pie-graph.png")}
-            style={styles.graphs}
-          />
+        <View style={[styles.sliderCard, { width: window.width * 0.82 }]}>
+          <TestChart></TestChart>
         </View>
       </ScrollView>
-    </View>
-  );
-};
-
-const MonthSlider = () => {
-  return (
-    <View style={styles.monthlySlider}>
-      <TouchableOpacity>
-        <Image
-          source={require("../assets/left-arrowW.png")}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-      <Text style={styles.titleText}>April</Text>
-      <TouchableOpacity>
-        <Image
-          source={require("../assets/right-arrowW.png")}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -252,8 +214,17 @@ const Menu = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  cont: {
     flex: 1,
+    alignItems: "center",
+  },
+  tit: {
+    fontSize: 24,
+    margin: 10,
+  },
+  container: {
+    //flex: 1,
+    height: "100v",
     flexDirection: "column",
     backgroundColor: "#F9F7F7",
     paddingTop: 55,
