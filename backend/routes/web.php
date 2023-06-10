@@ -30,3 +30,7 @@ Route::resource('/record',\App\Http\Controllers\RecordController::class);
 Route::post('/currencyconverter',[\App\Http\Controllers\CurrencyConverterController::class,'convert']);
 
 Route::post('/signup', [\App\Http\Controllers\registerCustomController::class, 'store']);
+use App\Http\Controllers\LoginController;
+
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);

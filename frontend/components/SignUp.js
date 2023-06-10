@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, StyleSheet, Text, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -7,6 +7,8 @@ export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -23,11 +25,19 @@ export default function SignUp() {
       })
       .then(response => {
         console.log('Signup successful');
+        setErrorMessage(''); // Reset error message
+        setIsModalVisible(false); // Hide the modal
+        navigation.navigate('LogIn');
       })
       .catch(error => {
-        // Handle signup error
         console.error(error);
+        setErrorMessage('Sign up failed'); // Set error message
+        setIsModalVisible(true); // Show the modal
       });
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -59,6 +69,21 @@ export default function SignUp() {
       <TouchableOpacity style={styles.button} onPress={handleSignUp} activeOpacity={0.8}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.errorText}>{errorMessage}</Text>
+            <TouchableOpacity onPress={closeModal}>
+              <Text style={styles.closeButton}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -76,7 +101,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#DBE2EF',
     marginBottom: 16,
     paddingHorizontal: 10,
-    //color: '#fff',
     borderRadius: 20,
     color: '#112D4E',
   },
@@ -108,5 +132,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#112D4E',
     marginBottom: 150,
     borderRadius: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#F9F7F7',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  closeButton: {
+    color: '#112D4E',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
