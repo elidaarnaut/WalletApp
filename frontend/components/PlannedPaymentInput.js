@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-
-
-//Latest code 26.06 
-//Still need to fix the date section and fix up the design
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import { Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 export default function PlannedPaymentInput() {
-  const [selectedType, setSelectedType] = useState('Option 1');
-  // const [selectedDate, setSelectedDate] = useState(null);
-  // const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState("Option 1");
+  const [selectedFrequency, setSelectedFrequency] = useState("1Year");
+  const [amount, setAmount] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleTypeChange = (itemValue) => {
-    setSelectedType(itemValue);
+    if (itemValue !== selectedType) {
+      setSelectedType(itemValue);
+    }
   };
-
-  const [amount, setAmount] = useState('');
 
   const handleAmountChange = (text) => {
     setAmount(text);
+  };
+
+  const handleFrequencyChange = (itemValue) => {
+    setSelectedFrequency(itemValue);
+  };
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
 
   const navigation = useNavigation();
@@ -34,15 +48,16 @@ export default function PlannedPaymentInput() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress}>
-          <Image 
-            
+          <Image
             source={require("../assets/left-arrow.png")}
-            style={styles.icon}></Image>
+            style={styles.icon}
+          ></Image>
         </TouchableOpacity>
         <Text>Name</Text>
-        <Image 
-        source={require("../assets/correctIcon.png")}
-        style={styles.icon}></Image>
+        <Image
+          source={require("../assets/correctIcon.png")}
+          style={styles.icon}
+        ></Image>
       </View>
 
       {/* DIVIDER */}
@@ -71,7 +86,7 @@ export default function PlannedPaymentInput() {
           value={amount}
           onChangeText={handleAmountChange}
           keyboardType="numeric"
-          placeholder='BAM'
+          placeholder="BAM"
         />
       </View>
 
@@ -82,8 +97,8 @@ export default function PlannedPaymentInput() {
       <View style={styles.box}>
         <Text style={styles.label}>Frequency</Text>
         <Picker
-          selectedValue={selectedType}
-          onValueChange={handleTypeChange}
+          selectedValue={selectedFrequency}
+          onValueChange={handleFrequencyChange}
           style={styles.dropdown}
         >
           <Picker.Item label="1 Year" value="1Year" />
@@ -93,29 +108,19 @@ export default function PlannedPaymentInput() {
         </Picker>
       </View>
 
-      {/* Date Picker */}
-      {/* <View style={styles.box}>
-        <Text style={styles.label}>Date</Text>
-        <TouchableOpacity style={styles.datePickerButton} onPress={showDatePicker}>
-          <Text style={styles.datePickerButtonText}>
-            {selectedDate ? selectedDate.toLocaleDateString() : 'Select date'}
-          </Text>
-        </TouchableOpacity>
-
-        {isDatePickerVisible && (
-          <DateTimePicker
-            value={selectedDate || new Date()}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
-      </View> */}
-
       {/* DIVIDER */}
       <View style={styles.divider}></View>
-      <View style={styles.box}></View>
-      
+
+      {/* Date Picker */}
+      <View style={styles.box}>
+        <Text style={styles.label}>Date</Text>
+        <input
+          type="date"
+          style={styles.datePickerInput}
+          value={selectedDate}
+          onChange={handleDateChange}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -123,23 +128,23 @@ export default function PlannedPaymentInput() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#F9F7F7',
-    alignItems: 'center',
+    flexDirection: "column",
+    backgroundColor: "#F9F7F7",
+    alignItems: "center",
     paddingTop: 35,
-    justifyContent:'space-evenly'
+    justifyContent: "space-evenly",
   },
   header: {
-    flexDirection: 'row',
-    width: '80%',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   divider: {
-    backgroundColor: '#112D4E',
+    backgroundColor: "#112D4E",
     height: 2,
     borderRadius: 20,
-    width: '85%',
+    width: "85%",
     marginVertical: 10,
   },
   dropdown: {
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
     marginTop: 10,
   },
@@ -158,21 +163,28 @@ const styles = StyleSheet.create({
     width: 200,
     height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     paddingHorizontal: 10,
   },
   box: {
-    width: '85%',
-    height: '17%',
-    backgroundColor: '#DBE2EF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "85%",
+    height: "17%",
+    backgroundColor: "#DBE2EF",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
   },
   icon: {
     width: 40,
     height: 40,
-    tintColor: '#112D4E'
-    
+    tintColor: "#112D4E",
+  },
+  datePickerInput: {
+    width: 200,
+    height: 40,
+    padding: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "gray",
   },
 });
