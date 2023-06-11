@@ -35,3 +35,4 @@ use App\Http\Controllers\LoginController;
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/removeBudget',[\App\Http\Controllers\BudgetController::class, 'removeBudget']);

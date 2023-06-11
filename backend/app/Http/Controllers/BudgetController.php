@@ -25,4 +25,16 @@ class BudgetController extends Controller
        Budget::create($request->all());
        return 'hello';
     }
+   
+public function removeBudget(Request $request) {
+   $userId = $request->input('userid');
+    $deleted = Budget::where('userid', $userId)->delete();
+  
+ if ($deleted) {
+            return response()->json(['message' => 'Budget removed successfully.']);
+        } else {
+            return response()->json(['message' => 'Failed to remove budget.']);
+        }
+
+}
 }

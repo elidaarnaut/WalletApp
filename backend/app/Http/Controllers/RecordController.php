@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Record;
 use App\Models\Budget;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
 
 class RecordController extends Controller
@@ -27,16 +28,16 @@ class RecordController extends Controller
         $amount = $request->input('amount');
         $budget= Budget::where('userid', $request->input('userid'))->first();
         $typeofpayment=$request->input('typeofpayment');
+       
         if($typeofpayment==0){
           $final= $budget->amount - $amount;  
         }
         elseif($typeofpayment==1){
             $final= $budget->amount + $amount;  
         }
-
-        
         Budget::where('userid',$request->input('userid'))->update(['amount'=>$final]);
         return 'hello';
-    }
+    }   
    
+
 }

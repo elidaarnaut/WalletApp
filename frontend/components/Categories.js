@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useContext } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,8 +12,19 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { GlobalContext } from "./global";
 
 export default function Categories() {
+  const {
+    amount,
+    typeofpayment,
+    userId,
+    categoryId,
+    setCategoryId,
+    subcategoryId,
+    setSubcategoryId,
+  } = useContext(GlobalContext);
+
   const navigation = useNavigation();
   const handleBackPress = () => {
     navigation.navigate("InputPage");
@@ -39,6 +51,50 @@ export default function Categories() {
     fetchCategories();
   }, []);
 
+  const handleSubcategoryPress = (subcat) => {
+    setCategoryId(subcat.categoryid);
+    setSubcategoryId(subcat.id);
+  };
+
+  console.log("odavdje");
+  console.log(userId);
+  console.log(amount);
+  console.log(typeofpayment);
+  console.log(categoryId);
+  console.log(subcategoryId);
+
+  const handleSubmitPress = async () => {
+    try {
+      const recordData = JSON.stringify({
+        typeofpayment: typeofpayment,
+        subcategoryid: subcategoryId,
+        categoryid: categoryId,
+        amount: amount,
+        userid: userId,
+      });
+
+      const response = await fetch("http://127.0.0.1:8000/record", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: recordData,
+      });
+
+      if (response.ok) {
+        console.log("Record created successfully");
+        // Handle successful response here
+        navigation.navigate("Budget");
+      } else {
+        console.error("Failed to create record");
+        // Handle error response here
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle network or other errors here
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -51,6 +107,12 @@ export default function Categories() {
             />
           </TouchableOpacity>
           <Text style={styles.text}>CATEGORIES</Text>
+          <TouchableOpacity onPress={handleSubmitPress}>
+            <Image
+              source={require("../assets/correctIcon.png")}
+              style={{ width: 30, height: 30 }}
+            />
+          </TouchableOpacity>
         </View>
 
         <View>
@@ -71,6 +133,7 @@ export default function Categories() {
                         <TouchableOpacity
                           key={subcat.id}
                           style={styles.iconContainer}
+                          onPress={() => handleSubcategoryPress(subcat)}
                         >
                           <Text style={styles.iconText}>{subcat.name}</Text>
                         </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from "react";
 import { SafeAreaView, StatusBar, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from "@react-navigation/native";
@@ -8,20 +8,27 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Dimensions,
     TextInput,
     Keyboard,
     TouchableWithoutFeedback,
     Modal,
   } from "react-native";
-
+import { GlobalContext } from "./global";
 const OCR_API_KEY = 'K88986161588957';
 
 export default function OCRPage () {
   const [image, setImage] = useState(null);
   const [ocrResult, setOCRResult] = useState(null);
-  const [selectedWord, setSelectedWord] = useState('');
+  const { amount, setAmount } = useContext(GlobalContext);
+  const { typeofpayment, setPaymentType } = useContext(GlobalContext);
+  const { userId } = useContext(GlobalContext);
 
+  const setTypeOfPayment = () => {
+    setPaymentType(0);
+  };
+console.log(amount);
+console.log(typeofpayment);
+console.log(userId);
   const handleSelectImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -35,6 +42,7 @@ export default function OCRPage () {
     });
 
     if (!result.cancelled) {
+      setTypeOfPayment();
       setImage(result.uri);
       console.log('Selected Image URI:', result.uri);
       performTextRecognition(result.uri);
@@ -83,7 +91,7 @@ export default function OCRPage () {
     });
 
   const handleWordSelection = (word) => {
-    setSelectedWord(word);
+    setAmount(parseFloat(word.replace(",", ".")).toFixed(2));
   };
 
   const navigation = useNavigation();
@@ -135,7 +143,7 @@ export default function OCRPage () {
             ))}
           </View>
         ) : null}
-        {selectedWord ? <Text>Selected Word: {selectedWord}</Text> : null}
+        {amount ? <Text>Selected Word: {amount}</Text> : null}
       </View>
     </SafeAreaView>
   );
