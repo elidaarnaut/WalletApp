@@ -14,7 +14,7 @@ import SignUp from "./components/SignUp";
 import { GlobalProvider } from "./components/global";
 import InfoPage from "./components/InfoPage";
 import OCRPage from "./components/OCRPage";
-
+import InputBudget from "./components/InputBudget";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -80,6 +80,11 @@ const App = () => {
           <Stack.Screen
             name="OCRPage"
             component={OCRPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="InputBudget"
+            component={InputBudget}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

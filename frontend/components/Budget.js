@@ -23,6 +23,9 @@ export default function Budget() {
   const handleBackArrowPress = () => {
     navigation.navigate('HomeScreen');
   }
+const handleInputBudget = () => {
+  navigation.navigate("InputBudget");
+};
 
   
   const [budget, setBudget] = useState([]);
@@ -46,40 +49,51 @@ export default function Budget() {
 
   
   return (
-    <View
-      style={[styles.container]}>
+    <View style={[styles.container]}>
       <View style={[styles.navbar]}>
         <TouchableOpacity onPress={handleBackArrowPress}>
-          <Image 
-            source={require('../assets/left-arrow.png')} 
-            style={styles.icon}/>
+          <Image
+            source={require("../assets/left-arrow.png")}
+            style={styles.icon}
+          />
         </TouchableOpacity>
 
         <Text style={[styles.textBudget]}>Budget</Text>
 
-        <TouchableOpacity 
-          onPress={handlePlannedPaymmentPress}>
-          <Image 
-            source={require('../assets/plannedpayment.png')} 
-            style={styles.icon}/>
+        <TouchableOpacity onPress={handlePlannedPaymmentPress}>
+          <Image
+            source={require("../assets/plannedpayment.png")}
+            style={styles.icon}
+          />
         </TouchableOpacity>
-
       </View>
       <View style={[styles.valueContainer]}>
-      <Text style={[styles.text]}>Your budget is:</Text>
-      {budget
-        .filter((bdg) => bdg.userid === userId)
-        .map((budget) => (
-          <View style={styles.budgetValue} key={budget.id}>
-            <Text style={styles.budgetValue}>{budget.amount} KM</Text>
-          </View>
-        ))}
+        <Text style={[styles.text]}>Your budget is:</Text>
+        {budget
+          .filter((bdg) => bdg.userid === userId)
+          .map((budget) => (
+            <View style={styles.budgetValue} key={budget.id}>
+              <Text style={styles.budgetValue}>{budget.amount} KM</Text>
+            </View>
+          ))}
       </View>
 
       <View style={[styles.inputContainer]}>
-        <Text style={[styles.text]}>Do you want to add an expense or income?</Text>
+        <Text style={[styles.text]}>
+          Do you want to add an expense or income?
+        </Text>
         <View style={[styles.addButton]}>
           <TouchableOpacity onPress={handleInputPress}>
+            <Text style={[styles.addText]}>Add</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={[styles.inputContainer]}>
+        <Text style={[styles.text]}>
+          Do you want to add your budget amount?
+        </Text>
+        <View style={[styles.addButton]}>
+          <TouchableOpacity onPress={handleInputBudget}>
             <Text style={[styles.addText]}>Add</Text>
           </TouchableOpacity>
         </View>
@@ -156,6 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '90%',
     padding: 20,
+    marginBottom:"10%",
     alignSelf: 'center',
   },
 

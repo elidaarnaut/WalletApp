@@ -23,33 +23,74 @@ export default function Converter() {
   const navigation = useNavigation();
 
   const handleBackPress = () => {
-    navigation.navigate("HomeScreen");
+    navigation.navigate("Budget");
   };
-
-  const handleCheckPress = () => {
-    navigation.navigate("Categories");
-  };
-
-  const handleKeyboard = () => {
-    Keyboard.dismiss();
+ const handleValueChange = (text) => {
+    setAmount(parseFloat(text).toFixed(2));
   };
   const { amount, setAmount } = useContext(GlobalContext);
-  const { typeofpayment, setPaymentType } = useContext(GlobalContext);
   const { userId } = useContext(GlobalContext);
 
-  //const [inputValue, setInputValue] = useState(""); // State for storing the input value
+  const handleCheckPress = async () => {
+    try {
+        
+      const recordData = JSON.stringify({
+        amount: amount,
+        userid: userId,
+      });
 
-  const handleValueChange = (text) => {
-    setAmount(text);
+      const response = await fetch("http://127.0.0.1:8000/budget", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: recordData,
+      });
+
+      if (response.ok) {
+        console.log("Record created successfully");
+        // Handle successful response here
+        navigation.navigate("HomeScreen");
+      } else {
+        console.error("Failed to create record");
+        // Handle error response here
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle network or other errors here
+    }
   };
 
-  const handlePickerChange = (itemValue) => {
-    setPaymentType(itemValue);
+  /*const handleDelete = async () => {
+    try {
+      const recordData = JSON.stringify({
+       
+        userid: userId,
+      });
+
+      const response = await fetch("http://127.0.0.1:8000/removeBudget", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: recordData,
+      });
+
+      if (response.ok) {
+        console.log("Budget deleted successfully");
+        // Handle successful response here
+       
+      } else {
+        console.error("Failed to delete");
+        // Handle error response here
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle network or other errors here
+    }
   };
 
-  console.log(amount);
-  console.log(typeofpayment);
-
+*/
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -85,18 +126,7 @@ export default function Converter() {
           </View>
         </View>
 
-        <View style={styles.containerBottom}>
-          <Picker
-            style={{ height: 50, width: 150, color: "black" }}
-            selectedValue={typeofpayment}
-            onValueChange={handlePickerChange}
-          >
-            <Picker.Item label="Income" value="1" />
-            <Picker.Item label="Expense" value="0" />
-          </Picker>
-
-          <View></View>
-        </View>
+       
       </View>
     </View>
   );

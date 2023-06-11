@@ -41,56 +41,94 @@ const { userId } = useContext(GlobalContext) ?? { userId: null };
   const handlePlusPress = () => {
     navigation.navigate("PlannedPaymentInput");
   };
+  const [selectedPaymentType, setSelectedPaymentType] = useState(null);
+const handleIncome = () => {
+  setSelectedPaymentType(1); // Set the selected payment type to 1 (income)
+};
 
+const handleExpense = () => {
+  setSelectedPaymentType(0); // Set the selected payment type to 0 (expense)
+};
 
+const handleAll = () => {
+  setSelectedPaymentType(null); // Set the selected payment type to 0 (expense)
+};
   return (
     <View style={styles.container}>
-      {/* HEADER */}
       <View style={styles.top}>
-        {/* BACK BUTTON */}
         <TouchableOpacity onPress={handleBackPress}>
           <Image
             source={require("../assets/left-arrow.png")}
             style={styles.image}
           />
         </TouchableOpacity>
-
-        {/* TITLE */}
         <Text style={styles.text}>Planned Payments</Text>
-
-        {/* SORT */}
-        <Image source={require("../assets/sort.png")} style={styles.image} />
+        <View></View>        
       </View>
 
-      {/* BODY SECTION */}
+      
       <View style={styles.kont}>
         <ScrollView>
           {payment
             .filter((pt) => pt.userid === userId)
-            .map((payment) => (
-              <View key={payment.id} style={styles.payment}>
-                <Text style={styles.paymentName}>{payment.name}</Text>
-                <Text style={styles.paymentAmount}>${payment.amount}</Text>
-                <Text style={styles.paymentDate}>{payment.date}</Text>
-                {payment.typeofpayment === 1 ? (
-                  <View style={styles.incomeBanner}>
-                    <Text style={styles.bannerText}>Income</Text>
+            .map((payment) => {
+              if (selectedPaymentType == null) {
+                return (
+                  <View key={payment.id} style={styles.payment}>
+                    <Text style={styles.paymentName}>{payment.name}</Text>
+                    <Text style={styles.paymentAmount}>${payment.amount}</Text>
+                    <Text style={styles.paymentDate}>{payment.date}</Text>
+                    {payment.typeofpayment === 1 ? (
+                      <View style={styles.incomeBanner}>
+                        <Text style={styles.bannerText}>Income</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.expenseBanner}>
+                        <Text style={styles.bannerText}>Expense</Text>
+                      </View>
+                    )}
                   </View>
-                ) : (
-                  <View style={styles.expenseBanner}>
-                    <Text style={styles.bannerText}>Expense</Text>
+                );
+              } else if (
+                selectedPaymentType === 1 &&
+                payment.typeofpayment === 1
+              ) {
+                return (
+                  <View key={payment.id} style={styles.payment}>
+                    <Text style={styles.paymentName}>{payment.name}</Text>
+                    <Text style={styles.paymentAmount}>${payment.amount}</Text>
+                    <Text style={styles.paymentDate}>{payment.date}</Text>
+                    <View style={styles.incomeBanner}>
+                      <Text style={styles.bannerText}>Income</Text>
+                    </View>
                   </View>
-                )}
-              </View>
-            ))}
+                );
+              } else if (
+                selectedPaymentType === 0 &&
+                payment.typeofpayment === 0
+              ) {
+                return (
+                  <View key={payment.id} style={styles.payment}>
+                    <Text style={styles.paymentName}>{payment.name}</Text>
+                    <Text style={styles.paymentAmount}>${payment.amount}</Text>
+                    <Text style={styles.paymentDate}>{payment.date}</Text>
+                    <View style={styles.expenseBanner}>
+                      <Text style={styles.bannerText}>Expense</Text>
+                    </View>
+                  </View>
+                );
+              } else {
+              }
+            })}
+          
         </ScrollView>
       </View>
 
       <View style={styles.bottom}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleIncome}>
           <Text style={styles.button}>Income</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleAll}>
           <Text style={styles.button}>All</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handlePlusPress} style={styles.plus}>
@@ -99,7 +137,7 @@ const { userId } = useContext(GlobalContext) ?? { userId: null };
             style={styles.plusImage}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleExpense}>
           <Text style={styles.button}>Expense</Text>
         </TouchableOpacity>
       </View>
@@ -118,8 +156,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   top: {
-    //top: 10,
-    //flex: 1,
     width: "90%",
     height: "10%",
     paddingHorizontal: 15,

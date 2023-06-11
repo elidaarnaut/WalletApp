@@ -50,18 +50,26 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
-        <TouchableOpacity style={styles.userButton} onPress={handleLoginPress}>
-          <Image
-            source={require("../assets/user.png")}
-            style={styles.userIcon}
-          ></Image>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.userButton} onPress={handleInfoPress}>
-          <Image
-            source={require("../assets/info.png")}
-            style={styles.userIcon}
-          ></Image>
-        </TouchableOpacity>
+        <View style={styles.leftIconContainer}>
+          <TouchableOpacity
+            style={styles.userButton}
+            onPress={handleLoginPress}
+          >
+            <Image
+              source={require("../assets/user.png")}
+              style={styles.userIcon}
+            ></Image>
+          </TouchableOpacity>
+          
+        </View>
+        <View style={styles.rightIconContainer}>
+          <TouchableOpacity style={styles.userButton} onPress={handleInfoPress}>
+            <Image
+              source={require("../assets/info.png")}
+              style={styles.userIcon}
+            ></Image>
+          </TouchableOpacity>
+        </View>
       </View>
       <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
@@ -91,12 +99,38 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 class TestChart extends Component {
   render() {
     const widthAndHeight = 200;
     const series = [20, 30, 10];
     const sliceColor = ["#3F72AF", "#112D4E", "#F9F7F7"];
+
+    return (
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.cont}>
+          <PieChart
+            widthAndHeight={widthAndHeight}
+            series={series}
+            sliceColor={sliceColor}
+          />
+        </View>
+      </ScrollView>
+    );
+  }
+}
+class TestChart2 extends Component {
+  render() {
+    const widthAndHeight = 200;
+    const series = [25, 60, 40];
+    const sliceColor = ["#112D4E", "#F9F7F7","#3F72AF"];
 
     return (
       <ScrollView style={{ flex: 1 }}>
@@ -120,7 +154,7 @@ const GraphSlider = () => {
           <TestChart></TestChart>
         </View>
         <View style={[styles.sliderCard, { width: window.width * 0.82 }]}>
-          <TestChart></TestChart>
+          <TestChart2></TestChart2>
         </View>
       </ScrollView>
     </View>
@@ -199,7 +233,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    marginBottom: 15,
   },
   menu: {
     backgroundColor: "#112D4E",
@@ -262,7 +297,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.47, //opacity of the shadow
     shadowRadius: 8.65, //blur radius of the shadow.
 
-    elevation: 9, //used to control the depth of the shadow on Android devices
+    elevation: 9, //used to control thedepth of the shadow on Android devices
   },
   monthlySlider: {
     backgroundColor: "#112D4E",
@@ -369,5 +404,15 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     tintColor: "#112D4E",
+  },
+  leftIconContainer: {
+    position: "absolute",
+    left: 115,
+    marginVertical: 10,
+  },
+  rightIconContainer: {
+    position: "absolute",
+    right: 115,
+    marginVertical: 10,
   },
 });

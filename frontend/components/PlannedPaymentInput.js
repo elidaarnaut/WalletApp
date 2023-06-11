@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -9,119 +9,189 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Keyboard,
   ScrollView,
   SafeAreaView,
+  TouchableWithoutFeedback,
+  Modal,
+  Input,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { GlobalContext } from "./global";
+import axios from "axios";
+import { NavigationContainer } from "@react-navigation/native"; 
 
 export default function PlannedPaymentInput() {
-  const [selectedType, setSelectedType] = useState("Option 1");
-  const [selectedFrequency, setSelectedFrequency] = useState("1Year");
-  const [amount, setAmount] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedType, setSelectedType] = useState(1);
+  const [selectedFrequency, setSelectedFrequency] = useState(30);
+  const [amount, setAmount] = useState(0.0);
+  const [name, setName] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const { userId } = useContext(GlobalContext);
 
   const handleTypeChange = (itemValue) => {
-    if (itemValue !== selectedType) {
       setSelectedType(itemValue);
+  };
+
+    const handleAmountChange = (text) => {
+      setAmount(text);
+    };
+
+    const handleNameChange = (text) => {
+      setName(text);
+    };
+
+    const handleFrequencyChange = (itemValue) => {
+      setSelectedFrequency(itemValue);
+    };
+
+    const handleDateChange = (event) => {
+      setSelectedDate(event.target.value);
+    };
+
+    const navigation = useNavigation();
+
+    const handleBackPress = () => {
+      navigation.navigate("PlannedPayments");
+    };
+const handleSubmitPress = async () => {
+  
+  try {
+  
+    const recordData = JSON.stringify({
+      name: name,
+      typeofpayment: selectedType,
+      subcategoryid: 1,
+      categoryid: 2,
+      amount: amount,
+      userid: userId,
+      frequency: selectedFrequency,
+      date: selectedDate,
+    });
+
+    const response = await fetch("http://127.0.0.1:8000/plannedpayment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: recordData,
+    });
+
+    if (response.ok) {
+      console.log("Record created successfully");
+      // Handle successful response here
+      navigation.navigate("Budget");
+    } else {
+      console.error("Failed to create record");
+      // Handle error response here
     }
-  };
+  } catch (error) {
+    console.error(error);
+    // Handle network or other errors here
+  }
+};
 
-  const handleAmountChange = (text) => {
-    setAmount(text);
-  };
-
-  const handleFrequencyChange = (itemValue) => {
-    setSelectedFrequency(itemValue);
-  };
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
-
-  const navigation = useNavigation();
-
-  const handleBackPress = () => {
-    navigation.navigate("PlannedPayments");
-  };
-
+  console.log("name", name);
+  console.log("date", selectedDate);
+  console.log("freq", selectedFrequency);
+  console.log("type", selectedType);
+  console.log("amount", amount);
+  console.log("user", userId);
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleBackPress}>
-          <Image
-            source={require("../assets/left-arrow.png")}
-            style={styles.icon}
-          ></Image>
-        </TouchableOpacity>
-        <Text>Name</Text>
-        <Image
-          source={require("../assets/correctIcon.png")}
-          style={styles.icon}
-        ></Image>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleBackPress}>
+            <Image
+              source={require("../assets/left-arrow.png")}
+              style={styles.icon}
+            ></Image>
+          </TouchableOpacity>
+          <Text style={styles.text}>Planned Payment</Text>
+          <TouchableOpacity onPress={handleSubmitPress}>
+            <Image
+              source={require("../assets/correctIcon.png")}
+              style={styles.icon}
+              
+            ></Image>
+          </TouchableOpacity>
+        </View>
 
-      {/* DIVIDER */}
-      <View style={styles.divider}></View>
+        {/* DIVIDER */}
+        <View style={styles.divider}></View>
 
-      {/* DROPDOWN TYPES - INCOME AND EXPENSE */}
-      <View style={styles.box}>
-        <Text style={styles.label}>Type</Text>
-        <Picker
-          selectedValue={selectedType}
-          onValueChange={handleTypeChange}
-          style={styles.dropdown}
-        >
-          <Picker.Item label="Income" value="Income" />
-          <Picker.Item label="Expense" value="Expense" />
-        </Picker>
-      </View>
+        <View style={styles.box}>
+          <Text style={styles.label}>Name</Text>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={handleNameChange}
+            keyboardType="default"
+            placeholder="ex. Salary"
+            maxLength={20}
+          />
+        </View>
 
-      {/* DIVIDER */}
-      <View style={styles.divider}></View>
+        <View style={styles.divider}></View>
 
-      <View style={styles.box}>
-        <Text style={styles.label}>Amount</Text>
-        <TextInput
-          style={styles.input}
-          value={amount}
-          onChangeText={handleAmountChange}
-          keyboardType="numeric"
-          placeholder="BAM"
-        />
-      </View>
+        {/* DROPDOWN TYPES - INCOME AND EXPENSE */}
+        <View style={styles.box}>
+          <Text style={styles.label}>Type</Text>
+          <Picker
+            selectedValue={selectedType}
+            onValueChange={handleTypeChange}
+            style={styles.dropdown}
+          >
+            <Picker.Item label="Income" value="1" />
+            <Picker.Item label="Expense" value="0" />
+          </Picker>
+        </View>
 
-      {/* DIVIDER */}
-      <View style={styles.divider}></View>
+        {/* DIVIDER */}
+        <View style={styles.divider}></View>
 
-      {/* DROPDOWN FREQUENCY */}
-      <View style={styles.box}>
-        <Text style={styles.label}>Frequency</Text>
-        <Picker
-          selectedValue={selectedFrequency}
-          onValueChange={handleFrequencyChange}
-          style={styles.dropdown}
-        >
-          <Picker.Item label="1 Year" value="1Year" />
-          <Picker.Item label="6 Months" value="6months" />
-          <Picker.Item label="3 Months" value="3months" />
-          <Picker.Item label="1 Month" value="1month" />
-        </Picker>
-      </View>
+        <View style={styles.box}>
+          <Text style={styles.label}>Amount</Text>
+          <TextInput
+            style={styles.input}
+            value={amount}
+            onChangeText={handleAmountChange}
+            keyboardType="numeric"
+            placeholder="BAM"
+          />
+        </View>
 
-      {/* DIVIDER */}
-      <View style={styles.divider}></View>
+        {/* DIVIDER */}
+        <View style={styles.divider}></View>
 
-      {/* Date Picker */}
-      <View style={styles.box}>
-        <Text style={styles.label}>Date</Text>
-        <input
-          type="date"
-          style={styles.datePickerInput}
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
-      </View>
-    </SafeAreaView>
+        {/* DROPDOWN FREQUENCY */}
+        <View style={styles.box}>
+          <Text style={styles.label}>Frequency</Text>
+          <Picker
+            selectedValue={selectedFrequency}
+            onValueChange={handleFrequencyChange}
+            style={styles.dropdown}
+          >
+            <Picker.Item label="1 Year" value="365" />
+            <Picker.Item label="6 Months" value="180" />
+            <Picker.Item label="3 Months" value="90" />
+            <Picker.Item label="1 Month" value="30" />
+          </Picker>
+        </View>
+
+        {/* DIVIDER */}
+        <View style={styles.divider}></View>
+
+        {/* Date Picker */}
+        <View style={styles.box}>
+          <Text style={styles.label}>Date</Text>
+          <input
+            type="date"
+            style={styles.datePickerInput}
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+        </View>
+      </SafeAreaView>
   );
 }
 
@@ -147,6 +217,10 @@ const styles = StyleSheet.create({
     width: "85%",
     marginVertical: 10,
   },
+  text: {
+    color: "#000",
+    fontSize: 25,
+  },
   dropdown: {
     width: 200,
     height: 50,
@@ -168,7 +242,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: "85%",
-    height: "17%",
+    height: "13%",
     backgroundColor: "#DBE2EF",
     alignItems: "center",
     justifyContent: "center",
