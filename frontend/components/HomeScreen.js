@@ -66,6 +66,7 @@ export default function HomeScreen() {
       </View>
       <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
+        
         {record.filter((rcrd) => rcrd.userid === userId).map((record) => {
           return (
             <View
