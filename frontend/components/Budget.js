@@ -1,11 +1,16 @@
-import React from 'react';
+//import React from 'react';
 import {StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Component, useContext } from "react";
 import axios from "axios";
+import { GlobalContext } from "./global";
+
 
 
 export default function Budget() {
+
+  const { userId } = useContext(GlobalContext) ?? { userId: null };
+
   const navigation = useNavigation();
   const handlePlannedPaymmentPress = () => {
     navigation.navigate('PlannedPayments');
@@ -22,12 +27,14 @@ export default function Budget() {
   
   const [budget, setBudget] = useState([]);
 
+  console.log(userId);
   useEffect(() => {
     const fetchBudget = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/budget");
          setBudget(response.data);
-         console.log(response.data);
+         //console.log(response.data);
+         //console.log(userId);
          
       } catch (error) {
         console.error(error);
@@ -35,7 +42,8 @@ export default function Budget() {
     };
 
     fetchBudget();
-  }, []);
+  }, [userId]);
+
   
   return (
     <View
@@ -59,11 +67,13 @@ export default function Budget() {
       </View>
       <View style={[styles.valueContainer]}>
       <Text style={[styles.text]}>Your budget is:</Text>
-        {budget.map((budget) => (
-        <View style={styles.budgetValue} key={budget.id}>
-          <Text style={styles.budgetValue}>{budget.amount} KM</Text>
-        </View>
-          ))}
+      {budget
+        .filter((bdg) => bdg.userid === userId)
+        .map((budget) => (
+          <View style={styles.budgetValue} key={budget.id}>
+            <Text style={styles.budgetValue}>{budget.amount} KM</Text>
+          </View>
+        ))}
       </View>
 
       <View style={[styles.inputContainer]}>

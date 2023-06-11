@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useContext, useState, useEffect, Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -15,8 +15,12 @@ import {
 } from "react-native";
 import axios from "axios";
 import PieChart from "react-native-pie-chart";
+import { GlobalContext } from "./global";
 
 export default function HomeScreen() {
+
+  const { userId } = useContext(GlobalContext) ?? { userId: null };
+
   const window = Dimensions.get("window");
 
   const [record, setRecord] = useState([]);
@@ -34,14 +38,17 @@ export default function HomeScreen() {
     };
 
     fetchRecord();
-  }, []);
+  }, [userId]);
 
   const navigation = useNavigation();
   const handleLoginPress = () => {
     navigation.navigate("LogIn");
   };
+  const handleInfoPress = () => {
+    navigation.navigate("InfoPage");
+  };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
         <TouchableOpacity style={styles.userButton} onPress={handleLoginPress}>
@@ -50,16 +57,16 @@ export default function HomeScreen() {
             style={styles.userIcon}
           ></Image>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.userButton} onPress={handleInfoPress}>
           <Image
             source={require("../assets/info.png")}
-            style={styles.userButton}
+            style={styles.userIcon}
           ></Image>
         </TouchableOpacity>
       </View>
       <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
-        {record.map((record) => {
+        {record.filter((rcrd) => rcrd.userid === userId).map((record) => {
           return (
             <View
               style={
@@ -80,9 +87,10 @@ export default function HomeScreen() {
         })}
       </ScrollView>
       <Menu></Menu>
-    </View>
+    </SafeAreaView>
   );
 }
+
 class TestChart extends Component {
   render() {
     const widthAndHeight = 200;
@@ -180,7 +188,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   container: {
-    height: "100v",
+    height: "100vh",
     flexDirection: "column",
     backgroundColor: "#F9F7F7",
     paddingTop: 55,

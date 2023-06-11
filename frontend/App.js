@@ -11,11 +11,13 @@ import InputPage from "./components/InputPage";
 import Categories from "./components/Categories";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
+import { GlobalProvider } from "./components/global";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
+    <GlobalProvider>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -70,6 +72,7 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </GlobalProvider>
   );
 };
 
