@@ -12,8 +12,9 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 
+import axios from "axios";
 const { width, height } = Dimensions.get("window");
 
 export default function Converter() {
@@ -22,6 +23,13 @@ export default function Converter() {
   const handleBackPress = () => {
     navigation.navigate("HomeScreen");
   };
+
+  const value1 = "";
+  const value2 = "";
+
+  const [inputValue, setInputValue] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
+  const [inputCur, setInputCur] = useState("");
 
   const options = [
     "BAM",
@@ -62,6 +70,28 @@ export default function Converter() {
     setVisible2(false);
   };
 
+  const fetchRecord = async () => {
+    try {
+      const data1 = {
+        from: selectedOption,
+        to: selectedOption2,
+        amount: inputValue,
+      };
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/currencyconverter",
+        data1
+      );
+      const converted = response.data.converted.toFixed(2);
+      setInputValue2(converted.toString());
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -90,6 +120,8 @@ export default function Converter() {
             label="Label"
             style={styles.input}
             keyboardType="numeric"
+            value={inputValue}
+            onChangeText={setInputValue}
           />
           <Text style={styles.inputText}>{selectedOption}</Text>
         </View>
@@ -130,6 +162,8 @@ export default function Converter() {
             label="Label"
             style={styles.input}
             keyboardType="numeric"
+            value={inputValue2}
+            onChangeText={setInputValue2}
           />
           <Text style={styles.inputText}>{selectedOption2}</Text>
         </View>
@@ -159,7 +193,7 @@ export default function Converter() {
 
       <View style={styles.containerBottom}>
         <View style={styles.select}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={fetchRecord}>
             <Text style={styles.textOP}>Convert</Text>
           </TouchableOpacity>
         </View>
@@ -222,7 +256,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     alignItems: "center",
-    //justifyContent: 'center',
     fontSize: 30,
   },
 

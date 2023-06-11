@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { View, TextInput, Image, TouchableOpacity, StyleSheet, Text, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -7,8 +8,10 @@ export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
 
   const navigation = useNavigation();
 
@@ -25,6 +28,7 @@ export default function SignUp() {
       })
       .then(response => {
         console.log('Signup successful');
+
         setErrorMessage(''); // Reset error message
         setIsModalVisible(false); // Hide the modal
         navigation.navigate('LogIn');
