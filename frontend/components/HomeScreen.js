@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useContext, useState, useEffect, Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -15,21 +15,12 @@ import {
 } from "react-native";
 import axios from "axios";
 import PieChart from "react-native-pie-chart";
+import { GlobalContext } from "./global";
 
-// Latest version of the Code, 15.05
-
-/* async function fetchRecords() {
-        try {
-                let response = await fetch('http://127.0.0.1:8000/record');
-                let responseJsonData = await response.json();
-                console.log(responseJsonData);
-                return responseJsonData;
-            }
-        catch(e) {
-            console.log(e)
-        }
-    }*/
 export default function HomeScreen() {
+
+  const { userId } = useContext(GlobalContext) ?? { userId: null };
+
   const window = Dimensions.get("window");
 
   const [record, setRecord] = useState([]);
@@ -47,14 +38,17 @@ export default function HomeScreen() {
     };
 
     fetchRecord();
-  }, []);
+  }, [userId]);
 
   const navigation = useNavigation();
   const handleLoginPress = () => {
     navigation.navigate("LogIn");
   };
+  const handleInfoPress = () => {
+    navigation.navigate("InfoPage");
+  };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
         <TouchableOpacity style={styles.userButton} onPress={handleLoginPress}>
@@ -63,12 +57,25 @@ export default function HomeScreen() {
             style={styles.userIcon}
           ></Image>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.userButton} onPress={handleInfoPress}>
+          <Image
+            source={require("../assets/info.png")}
+            style={styles.userIcon}
+          ></Image>
+        </TouchableOpacity>
       </View>
       <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
-        {record.map((record) => {
+        {record.filter((rcrd) => rcrd.userid === userId).map((record) => {
           return (
-            <View style={styles.spendingItem} key={record.id}>
+            <View
+              style={
+                record.typeofpayment == 0
+                  ? styles.spendingItem2
+                  : styles.spendingItem
+              }
+              key={record.id}
+            >
               <View>
                 <Text style={styles.itemTitle}>
                   Category: {record.category_name}{" "}
@@ -80,52 +87,10 @@ export default function HomeScreen() {
         })}
       </ScrollView>
       <Menu></Menu>
-    </View>
+    </SafeAreaView>
   );
 }
 
-/*
-
-
-/*
-const SpendingsItem = () => {
-  return (
-    <View style={styles.spendingItem}>
-      <Text style={styles.itemTitle}>Spending Item</Text>
-      <Text style={styles.itemMoney}>24 KM</Text>
-      <Image
-        source={require("../assets/right-arrowW.png")}
-        style={styles.rightArrow}
-      />
-    </View>
-  );
-};
-
-const SpendingsView = () => {
-  return (
-     <ScrollView style={styles.scrollView}>
-      <View style={styles.spendingItem}>
-      {subcategory.map((subcategory) => (
-        
-          <Text style={styles.itemTitle} key={subcategory.id}>{subcategory.name}</Text>
-        
-      ))}
-        {record.map((record) => (
-          <Text style={styles.itemMoney} key={record.id}>{record.amount}</Text>
-      
-      ))}
-      <Image
-        source={require("../assets/right-arrowW.png")}
-        style={styles.rightArrow}
-      />
-    </View>
-
-   </ScrollView>
-      
-    
-  );
-};
-*/
 class TestChart extends Component {
   render() {
     const widthAndHeight = 200;
@@ -223,8 +188,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   container: {
-    //flex: 1,
-    height: "100v",
+    height: "100vh",
     flexDirection: "column",
     backgroundColor: "#F9F7F7",
     paddingTop: 55,
@@ -343,10 +307,30 @@ const styles = StyleSheet.create({
     paddingBottom: 300,
     flexDirection: "column",
     height: "70%",
-    //borderColor: '#000',
-    //borderStyle: 'solid'
   },
   spendingItem: {
+    width: "90%",
+    height: 70,
+    borderRadius: 20,
+    margin: 10,
+    alignItems: "center",
+    justifyContent: "space-around",
+    backgroundColor: "#DBE2EF",
+    flexDirection: "row",
+
+    alignSelf: "center",
+    shadowColor: "#03C988", //color of the shadow
+    shadowOffset: {
+      //offset of the shadow
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.57, //opacity of the shadow
+    shadowRadius: 6.65, //blur radius of the shadow.
+
+    elevation: 9, //used to control the depth of the shadow on Android devices
+  },
+  spendingItem2: {
     width: "90%",
     height: 70,
     borderRadius: 20,
@@ -358,25 +342,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
 
     alignSelf: "center",
-    shadowColor: "#000", //color of the shadow
+    shadowColor: "#EB6440", //color of the shadow
     shadowOffset: {
       //offset of the shadow
       width: 0,
       height: 6,
     },
-    shadowOpacity: 0.37, //opacity of the shadow
+    shadowOpacity: 0.57, //opacity of the shadow
     shadowRadius: 6.65, //blur radius of the shadow.
 
     elevation: 9, //used to control the depth of the shadow on Android devices
   },
+
   itemTitle: {
-    //  fontFamily: 'Arial',
     fontWeight: "500",
     fontSize: 15,
     color: "#112D4E",
   },
   itemMoney: {
-    //fontFamily: 'Arial',
     fontWeight: "500",
     fontSize: 15,
     color: "#112D4E",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigation, NavigationContainer } from "@react-navigation/native";
 import {
   View,
@@ -13,6 +13,7 @@ import {
   Modal,
 } from "react-native";
 import axios from 'axios';
+import { GlobalContext } from "./global";
 
 export default function App() {
 
@@ -21,6 +22,8 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigation = useNavigation();
+  const { setUserId } = useContext(GlobalContext);
+
 
   const handleSignUpPress = () => {
     navigation.navigate("SignUp");
@@ -39,6 +42,14 @@ export default function App() {
       console.log('Login successful');
       setErrorMessage(''); // Reset error message
       setIsModalVisible(false); // Hide the modal
+
+      console.log(response.data);
+      //setUserId(response.data.id);
+
+      //console.log('in Login');
+      //console.log(id);
+      setUserId(response.data.user.id);
+      //console.log(id)
       navigation.navigate('HomeScreen'); // Navigate to HomeScreen
     })
     .catch(error => {
@@ -148,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#DBE2EF",
     marginBottom: 16,
     paddingHorizontal: 10,
-    color: "#fff",
+    color: "#112D4E",
     borderRadius: 20,
   },
   button: {
