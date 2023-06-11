@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { GlobalContext } from "./global";
 
 const { width, height } = Dimensions.get("window");
 export default function App() {
-  const [payments, setPayments] = useState([]);
-
+  const [payment, setPayments] = useState([]);
+const { userId } = useContext(GlobalContext) ?? { userId: null };
   useEffect(() => {
     const fetchPayment = async () => {
       try {
@@ -44,10 +45,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-
       {/* HEADER */}
       <View style={styles.top}>
-
         {/* BACK BUTTON */}
         <TouchableOpacity onPress={handleBackPress}>
           <Image
@@ -65,27 +64,28 @@ export default function App() {
 
       {/* BODY SECTION */}
       <View style={styles.kont}>
-
         <ScrollView>
-          {payments.map((payment) => (
-            <View key={payment.id} style={styles.payment}>
-              <Text style={styles.paymentName}>{payment.name}</Text>
-              <Text style={styles.paymentAmount}>${payment.amount}</Text>
-              <Text style={styles.paymentDate}>{payment.date}</Text>
-              {payment.typeofpayment === 1 ? (
-                <View style={styles.incomeBanner}>
-                  <Text style={styles.bannerText}>Income</Text>
-                </View>
-              ) : (
-                <View style={styles.expenseBanner}>
-                  <Text style={styles.bannerText}>Expense</Text>
-                </View>
-              )}
-            </View>
-          ))}
+          {payment
+            .filter((pt) => pt.userid === userId)
+            .map((payment) => (
+              <View key={payment.id} style={styles.payment}>
+                <Text style={styles.paymentName}>{payment.name}</Text>
+                <Text style={styles.paymentAmount}>${payment.amount}</Text>
+                <Text style={styles.paymentDate}>{payment.date}</Text>
+                {payment.typeofpayment === 1 ? (
+                  <View style={styles.incomeBanner}>
+                    <Text style={styles.bannerText}>Income</Text>
+                  </View>
+                ) : (
+                  <View style={styles.expenseBanner}>
+                    <Text style={styles.bannerText}>Expense</Text>
+                  </View>
+                )}
+              </View>
+            ))}
         </ScrollView>
       </View>
-      
+
       <View style={styles.bottom}>
         <TouchableOpacity>
           <Text style={styles.button}>Income</Text>
@@ -93,13 +93,12 @@ export default function App() {
         <TouchableOpacity>
           <Text style={styles.button}>All</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handlePlusPress}
-        style={styles.plus}>
+        <TouchableOpacity onPress={handlePlusPress} style={styles.plus}>
           <Image
             source={require("../assets/plus.png")}
             style={styles.plusImage}
           />
-      </TouchableOpacity>
+        </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.button}>Expense</Text>
         </TouchableOpacity>

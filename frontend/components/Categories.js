@@ -60,10 +60,9 @@ export default function Categories() {
             <View style={styles.categoryContainer}>
               {category.map((cat) => (
                 <View key={cat.id}>
-                  <Text style={styles.categoryTitle}>{cat.name}
-                  </Text>
+                  <Text style={styles.categoryTitle}>{cat.name}</Text>
                   {/* DIVIDER */}
-            <View style={styles.divider}></View>
+                  <View style={styles.divider}></View>
 
                   <View style={styles.subcategoryContainer}>
                     {subcategory
@@ -114,9 +113,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    marginRight:10,
+    marginRight: 10,
     textAlign: "center",
-    color:"#112D4E",
+    color: "#112D4E",
   },
   subcategoryContainer: {
     flexDirection: "row",
@@ -124,8 +123,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     paddingHorizontal: 10,
     marginBottom: 20,
-    backgroundColor: "#F9F7F7", 
-    borderRadius: 10, 
+    backgroundColor: "#F9F7F7",
+    borderRadius: 10,
   },
   iconContainer: {
     width: "48%",
@@ -166,6 +165,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: "85%",
     marginVertical: 10,
-    alignSelf:"center",
+    alignSelf: "center",
   },
 });

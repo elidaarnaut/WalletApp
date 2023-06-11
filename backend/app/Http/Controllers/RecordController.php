@@ -16,7 +16,7 @@ class RecordController extends Controller
         $record = DB::table('records')
                     ->join('categories', 'records.categoryid', '=', 'categories.id')
                     ->join('subcategories', 'records.subcategoryid', '=', 'subcategories.id')
-                    ->select(['records.id', 'records.typeofpayment','records.amount',  'categories.name as category_name', 'subcategories.name as subcategory_name'])->get();
+                    ->select(['records.id', 'records.typeofpayment','records.amount',  'categories.name as category_name', 'subcategories.name as subcategory_name','records.userid'])->get();
     
     return $record;
     }

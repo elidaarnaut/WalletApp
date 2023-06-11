@@ -18,7 +18,6 @@ import PieChart from "react-native-pie-chart";
 import { GlobalContext } from "./global";
 
 export default function HomeScreen() {
-
   const { userId } = useContext(GlobalContext) ?? { userId: null };
 
   const window = Dimensions.get("window");
@@ -31,7 +30,7 @@ export default function HomeScreen() {
       try {
         const response = await axios.get("http://127.0.0.1:8000/record");
         setRecord(response.data);
-        //console.log(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -66,25 +65,27 @@ export default function HomeScreen() {
       </View>
       <GraphSlider> </GraphSlider>
       <ScrollView style={styles.scrollView}>
-        {record.filter((rcrd) => rcrd.userid === userId).map((record) => {
-          return (
-            <View
-              style={
-                record.typeofpayment == 0
-                  ? styles.spendingItem2
-                  : styles.spendingItem
-              }
-              key={record.id}
-            >
-              <View>
-                <Text style={styles.itemTitle}>
-                  Category: {record.category_name}{" "}
-                </Text>
-                <Text style={styles.itemMoney}>Amount: {record.amount}</Text>
+        {record
+          .filter((rcrd) => rcrd.userid === userId)
+          .map((record) => {
+            return (
+              <View
+                style={
+                  record.typeofpayment == 0
+                    ? styles.spendingItem2
+                    : styles.spendingItem
+                }
+                key={record.id}
+              >
+                <View>
+                  <Text style={styles.itemTitle}>
+                    Category: {record.category_name}{" "}
+                  </Text>
+                  <Text style={styles.itemMoney}>Amount: {record.amount}</Text>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })}
       </ScrollView>
       <Menu></Menu>
     </SafeAreaView>
