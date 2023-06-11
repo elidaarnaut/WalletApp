@@ -52,29 +52,31 @@ export default function Converter() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.containerMain}>
-        <View style={styles.inputField}>
-          <TextInput
-            variant="standard"
-            label="Label"
-            style={styles.input}
-            keyboardType="numeric"
-          />
-          <Text style={styles.bigText}>BAM</Text>
-        </View>
-      </View>
-
-      <View style={styles.containerBottom}>
-        <View style={styles.select}>
-          <TouchableOpacity>
-            <Text style={styles.textOP}>Convert</Text>
-          </TouchableOpacity>
+      <View style={styles.mainBox}>
+        <View style={styles.containerMain}>
+          <View style={styles.inputField}>
+            <TextInput
+              variant="standard"
+              label="Label"
+              style={styles.input}
+              keyboardType="numeric"
+            />
+            <Text style={styles.bigText}>BAM</Text>
+          </View>
         </View>
 
-        <Picker style={{ height: 50, width: 150, color: "black" }}>
-          <Picker.Item label="Income" value="Income" />
-          <Picker.Item label="Expense" value="Expense" />
-        </Picker>
+        <View style={styles.containerBottom}>
+          <Picker style={{ height: 50, width: 150, color: "black" }}>
+            <Picker.Item label="Income" value="Income" />
+            <Picker.Item label="Expense" value="Expense" />
+          </Picker>
+
+          <View style={styles.select}>
+            <TouchableOpacity>
+              <Text style={styles.textOP}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -91,9 +93,9 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#112D4E",
     width: "100%",
-    height: "12%",
+    height: 80,
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "space-between",
     paddingBottom: 10,
     paddingHorizontal: 10,
@@ -117,9 +119,11 @@ const styles = StyleSheet.create({
   containerBottom: {
     backgroundColor: "#F9F7F7",
     width: "100%",
-    height: "10%",
-    justifyContent: "center",
+    height: "20%",
+    flexDirection: "column",
+    justifyContent: "space-between",
     alignItems: "center",
+    paddingVertical: 15,
   },
 
   select: {
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
 
   inputText: {
     color: "white",
-    fontSize: 20,
+    fontSize: 30,
   },
 
   textOP: {
@@ -160,5 +164,11 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: 40,
     color: "black",
+  },
+  mainBox: {
+    height: "80%",
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
   },
 });

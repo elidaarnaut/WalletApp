@@ -21,6 +21,9 @@ export default function InputTypePage() {
   const handleManualInputPress = () => {
     navigation.navigate("InputPage");
   };
+  const handleScanInputPress = () => {
+    navigation.navigate("OCRPage");
+  };
 
   return (
     <View style={styles.container}>
@@ -35,7 +38,10 @@ export default function InputTypePage() {
           <Text style={styles.cardText}>Manual Input</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.textCard}>
+        <TouchableOpacity
+          onPress={handleScanInputPress}
+          style={styles.textCard}
+        >
           <Text style={styles.cardText}>Scan Input</Text>
         </TouchableOpacity>
       </View>
